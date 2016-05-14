@@ -1,6 +1,43 @@
-#include "numericconversor.h"
+#ifndef NUMERICCONVERTER_H
+#define NUMERICCONVERTER_H
 
-int NumericConversor::charToInt(char _char, int _base, LetterCase _case)
+#include <vector>
+#include <string>
+#include <array>
+#include <iostream>
+#include <math.h>
+#include <limits>
+
+#ifndef NUL
+#define NUL 0
+#endif
+
+namespace NumCon
+{
+    enum LetterCase
+    {
+     UPPERCASE,
+     LOWERCASE
+    };
+
+    //Declarations
+
+    int charToInt(char _char, int _base = 10);
+    char intToChar(int _int, int _base = 10);
+    std::string intToStr(int _int, int _base = 10);
+    int strToInt(std::string _str, int _base = 10);
+    bool isDigit(char _char, int _base = 10);
+    bool isNumber(std::string _str);
+    int countDigit(int _int);
+    int countDigit(std::string _str);
+
+
+
+}
+
+//Definitions
+
+int NumCon::charToInt(char _char, int _base, LetterCase _case)
 {
     /* Converts the target char to int
      * in the given base, from 2 up to 36.
@@ -27,12 +64,12 @@ int NumericConversor::charToInt(char _char, int _base, LetterCase _case)
     else return -1;
 }
 
-char NumericConversor::intToChar(int _int, int _base)
+char NumCon::intToChar(int _int, int _base)
 {
     /* Converts target integer to char taking into
      * consideration the lettter case.
      * Supports convertions from base 2 up to 36.
-     * If convertion is not supported returns NUL (0).*/
+     * If conversion is not supported returns NUL (0).*/
 
     /* First it checks if the base is
      * in the base range and the integer
@@ -52,10 +89,14 @@ char NumericConversor::intToChar(int _int, int _base)
             return 'a' + (_int - 10);
         }
     }
-    else return NUL;
+    else
+    {
+        std::cout << "Conversion is not supported! Base must be betweeen 2 and 36 inclusive and the integer must be positive!\n";
+        return NULL;
+    }
 }
 
-std::string NumericConversor::intToStr(int _int, int _base)
+std::string NumCon::intToStr(int _int, int _base)
 {
     /* Converts and integer to an string in the
      * given base, which must be between
@@ -75,9 +116,14 @@ std::string NumericConversor::intToStr(int _int, int _base)
 
         return _str;
     }
+    else
+    {
+        std::cout << "This base is not supported! Must be between 2 and 36 inclusive!\n";
+        return _str;
+    }
 }
 
-int NumericConversor::strToInt(std::string _str, int _base)
+int NumCon::strToInt(std::string _str, int _base)
 {
     /* Converts the entire string to an integer
      * in the given base.
@@ -143,7 +189,7 @@ int NumericConversor::strToInt(std::string _str, int _base)
     }
 }
 
-bool NumericConversor::isDigit(char _char, int _base)
+bool NumCon::isDigit(char _char, int _base)
 {
     /* Returns true if the character is a digit in
      * the given base and false otherwise.
@@ -177,7 +223,7 @@ bool NumericConversor::isDigit(char _char, int _base)
     }
 }
 
-bool NumericConversor::isNumber(std::string _str, int _base)
+bool NumCon::isNumber(std::string _str, int _base)
 {
     /* Checks if the string only contain digits
      * in a given base and at most a minus (-) sign
@@ -198,7 +244,7 @@ bool NumericConversor::isNumber(std::string _str, int _base)
     return true;
 }
 
-int NumericConversor::countDigit(int _int)
+int NumCon::countDigit(int _int)
 {
     /* Counts the number of digits in the given
      * integer, always in base 10.*/
@@ -220,3 +266,26 @@ int NumericConversor::countDigit(int _int)
 
     return _digitCounter;
 }
+
+int NumCon::countDigit(std::string _str)
+{
+    /* Counts the number of digits on a string if it is
+     * a number.
+     * Useful because it returns the number of digits regardless
+     * if the number is positive or negative.
+     * If the string doesn't hold a number returns -1;*/
+
+    //The string must hold a number.
+    if(isNumber(_str))
+    {
+        if(_str[0] == '-') return _str.size() - 1;
+        else return _str.size();
+    }
+    else return -1;
+}
+
+/* Adapt to more types conversion and including limits and boundaries
+ * This is very important, I need to make a revision of this and implement
+ * everything carefully to prevent conversion errors and problems and etc.*/
+
+#endif // NUMERICCONVERTER_H

@@ -14,8 +14,7 @@ SOURCES += main.cpp \
     rhythmicsetup.cpp \
     melodicsetup.cpp \
     melodicsolfege.cpp \
-    miditranslationunit.cpp \
-    numericconversor.cpp
+    miditranslationunit.cpp
 
 HEADERS += \
     note.h \
@@ -26,4 +25,4 @@ HEADERS += \
     pcg_extras.hpp \
     miditranslationunit.h \
     musicenums.h \
-    numericconversor.h
+    numericconverter.h
