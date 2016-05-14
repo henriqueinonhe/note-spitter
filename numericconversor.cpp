@@ -27,7 +27,7 @@ int NumericConversor::charToInt(char _char, int _base, LetterCase _case)
     else return -1;
 }
 
-char intToChar(int _int, int _base)
+char NumericConversor::intToChar(int _int, int _base)
 {
     /* Converts target integer to char taking into
      * consideration the lettter case.
@@ -55,11 +55,92 @@ char intToChar(int _int, int _base)
     else return NUL;
 }
 
-std::string intToStr(int _int, int _base);
-int strToInt(std::string _str, int _base)
+std::string NumericConversor::intToStr(int _int, int _base)
+{
+    /* Converts and integer to an string in the
+     * given base, which must be between
+     * 2 and 36 inclusive.
+     * Supports negative integers convertion.*/
+
+    std::string _str;
+
+    /*First it checks if the base is supported.*/
+    if(2 <= _base && _base <= 36)
+    {
+        for(int _power = 0; _int != 0; _power++)
+        {
+            _str.insert(_str.begin(), _int % _base);
+            _int /= _base;
+        }
+
+        return _str;
+    }
+}
+
+int NumericConversor::strToInt(std::string _str, int _base)
 {
     /* Converts the entire string to an integer
-     * */
+     * in the given base.
+     * Supports negative integers.
+     * If it is not possible to be converted returns
+     * -99999999.*/
+
+    int _int = 0;
+
+    /* First it checks if the given string
+     * is a number in the given base.*/
+    if(isNumber(_str, _base))
+    {
+        /* We begin in the last digit of the number.
+         * We only go until the second digit, because
+         * the first one could either be a digit or
+         * a minus (-) sign, so we deal with the first
+         * digit separetely.*/
+        int _power = 0; //Power we will raise the digits
+
+        for(auto _iterator = _str.rend(); _iterator != _str.rbegin(); _iterator++, _power++)
+        {
+            if('0' <= *_iterator && *_iterator <= '9')
+            {
+                _int += (*_iterator - '0') * pow(_base, _power);
+            }
+            else if('A' <= *_iterator && *_iterator <=  'Z')
+            {
+                _int += (*_iterator - 'A' + 10) * pow(_base, _power);
+            }
+            else if('a' <= *_iterator && *_iterator <= 'z')
+            {
+                _int += (*_iterator - 'a' + 10) * pow(_base, _power);
+            }
+        }
+
+        /*Dealing with the last digit*/
+        if(_str.begin() == '-')
+        {
+            _int *= -1;
+        }
+        else
+        {
+            if('0' <= *_iterator && *_iterator <= '9')
+            {
+                _int += (*_iterator - '0') * pow(_base, _power);
+            }
+            else if('A' <= *_iterator && *_iterator <=  'Z')
+            {
+                _int += (*_iterator - 'A' + 10) * pow(_base, _power);
+            }
+            else if('a' <= *_iterator && *_iterator <= 'z')
+            {
+                _int += (*_iterator - 'a' + 10) * pow(_base, _power);
+            }
+        }
+        return _int;
+    }
+    else
+    {
+        std::cout << "Conversion failed!\n";
+        return -99999999;
+    }
 }
 
 bool NumericConversor::isDigit(char _char, int _base)
@@ -96,7 +177,7 @@ bool NumericConversor::isDigit(char _char, int _base)
     }
 }
 
-bool isNumber(std::string _str, int _base)
+bool NumericConversor::isNumber(std::string _str, int _base)
 {
     /* Checks if the string only contain digits
      * in a given base and at most a minus (-) sign
@@ -117,7 +198,7 @@ bool isNumber(std::string _str, int _base)
     return true;
 }
 
-int countDigit(int _int)
+int NumericConversor::countDigit(int _int)
 {
     /* Counts the number of digits in the given
      * integer, always in base 10.*/

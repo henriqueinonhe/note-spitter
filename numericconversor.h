@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <iostream>
+#include <math.h>
 
 #ifndef NUL
 #define NUL 0
