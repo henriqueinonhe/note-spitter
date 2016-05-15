@@ -6,6 +6,7 @@
 #include "miditranslationunit.h"
 #include "melodicsolfege.h"
 #include "pcg_random.hpp"
+#include  "numericconverter.h"
 
 int main()
 {

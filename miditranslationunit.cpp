@@ -31,7 +31,7 @@ void MidiTranslationUnit::setPulseMeasure(PulseMeasureValidFigures _pulseMeasure
     pulseMeasure = _pulseMeasure;
 }
 
-bool MidiTranslationUnit::translateToMidi(std::vector<Note> _input)
+void MidiTranslationUnit::translateToMidi(std::vector<Note> _input)
 {
     unsigned int _index = 0;
     //First Instruction
@@ -85,7 +85,7 @@ bool MidiTranslationUnit::translateToMidi(std::vector<Note> _input)
             outputData.pop_back();
         }
     }
-    //If the last note is a pitched note we must erase the delta time (oxoo)
+    //If the last note is a pitched note we must erase the delta time (0x00)
     else outputData.pop_back();
 
     //Finishing bytes

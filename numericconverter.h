@@ -23,21 +23,21 @@ namespace NumCon
     //Declarations
 
     int charToInt(char _char, int _base = 10);
-    char intToChar(int _int, int _base = 10);
-    std::string intToStr(int _int, int _base = 10);
+    char intToChar(int _int, int _base = 10, LetterCase _case = LOWERCASE);
+    std::string intToStr(long long _int, int _base = 10, LetterCase _case = LOWERCASE);
     int strToInt(std::string _str, int _base = 10);
     bool isDigit(char _char, int _base = 10);
-    bool isNumber(std::string _str);
-    int countDigit(int _int);
-    int countDigit(std::string _str);
-
-
+    bool isNumber(std::string _str, int _base = 10);
+    bool isNumber(std::vector<char> _vector, int _base = 10);
+    int countDigit(long long _long, int _base = 10);
+    int countDigit(std::string _str, int _base = 36);
+    unsigned long long maxValue(int _base, int _digitNum);
 
 }
 
 //Definitions
 
-int NumCon::charToInt(char _char, int _base, LetterCase _case)
+int NumCon::charToInt(char _char, int _base)
 {
     /* Converts the target char to int
      * in the given base, from 2 up to 36.
@@ -62,9 +62,11 @@ int NumCon::charToInt(char _char, int _base, LetterCase _case)
         }
     }
     else return -1;
+
+    return -1;
 }
 
-char NumCon::intToChar(int _int, int _base)
+char NumCon::intToChar(int _int, int _base, LetterCase _case)
 {
     /* Converts target integer to char taking into
      * consideration the lettter case.
@@ -91,12 +93,15 @@ char NumCon::intToChar(int _int, int _base)
     }
     else
     {
-        std::cout << "Conversion is not supported! Base must be betweeen 2 and 36 inclusive and the integer must be positive!\n";
-        return NULL;
+        std::cout << "Conversion is not supported! Base must be betweeen 2 and 36 inclusive.\n"
+                     "The integer must be greater than the base!\n";
+        return NUL;
     }
+
+    return NUL;
 }
 
-std::string NumCon::intToStr(int _int, int _base)
+std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
 {
     /* Converts and integer to an string in the
      * given base, which must be between
@@ -110,7 +115,7 @@ std::string NumCon::intToStr(int _int, int _base)
     {
         for(int _power = 0; _int != 0; _power++)
         {
-            _str.insert(_str.begin(), _int % _base);
+            _str.insert(_str.begin(), intToChar(_int % _base, _base, _case));
             _int /= _base;
         }
 
@@ -161,23 +166,23 @@ int NumCon::strToInt(std::string _str, int _base)
         }
 
         /*Dealing with the last digit*/
-        if(_str.begin() == '-')
+        if(_str.front() == '-')
         {
             _int *= -1;
         }
         else
         {
-            if('0' <= *_iterator && *_iterator <= '9')
+            if('0' <= _str.front() && _str.front() <= '9')
             {
-                _int += (*_iterator - '0') * pow(_base, _power);
+                _int += (_str.front() - '0') * pow(_base, _power);
             }
-            else if('A' <= *_iterator && *_iterator <=  'Z')
+            else if('A' <= _str.front() && _str.front() <=  'Z')
             {
-                _int += (*_iterator - 'A' + 10) * pow(_base, _power);
+                _int += (_str.front() - 'A' + 10) * pow(_base, _power);
             }
-            else if('a' <= *_iterator && *_iterator <= 'z')
+            else if('a' <= _str.front() && _str.front() <= 'z')
             {
-                _int += (*_iterator - 'a' + 10) * pow(_base, _power);
+                _int += (_str.front() - 'a' + 10) * pow(_base, _power);
             }
         }
         return _int;
@@ -199,9 +204,9 @@ bool NumCon::isDigit(char _char, int _base)
      * return false */
 
     //There cannot be a numeric base less than 2.
-    if(_base < 2)
+    if(_base < 2 || _base > 36)
     {
-        std::cout << "Base less than two!\n";
+        std::cout << "Base must be between 2 and 36 inclusive!";
         return false;
     }
 
@@ -230,13 +235,19 @@ bool NumCon::isNumber(std::string _str, int _base)
      * at the beggining.
      * If so it returns true.
      * If there is any other "foreign" character in the string
-     * it returns false.*/
+     * it returns false.
+     * If the string is empty returns false. */
 
+    if(_str.empty()) //Checks if the string is empty
+    {
+        std::cout << "The string is empty!\n";
+        return false;
+    }
     /* The first character receives special treatment
      * in case it is a minus sign.*/
-    if(!isDigit(_str[0]) && _str[0] != '-') return false;
+    else if(!isDigit(_str[0], _base) && _str[0] != '-') return false;
 
-    for(int _index = 1; _index < _str.size(); _index++)
+    for(unsigned int _index = 1; _index < _str.size(); _index++)
     {
         if(!isDigit(_str[_index], _base)) return false;
     }
@@ -244,13 +255,39 @@ bool NumCon::isNumber(std::string _str, int _base)
     return true;
 }
 
-int NumCon::countDigit(int _int)
+bool NumCon::isNumber(std::vector<char> _vector, int _base)
+{
+    /* Checks if the vector only contain digits
+     * in a given base and at most a minus (-) sign
+     * at the beggining.
+     * If so it returns true.
+     * If there is any other "foreign" character in the string
+     * it returns false.
+     * If the vector is empty returns false. */
+
+    if(_vector.empty()) //Checks if the vector is empty
+    {
+        std::cout << "The vector is empty!\n";
+    }
+    /* The first character receives special treatment
+     * in case it is a minus sign.*/
+    else if(!isDigit(_vector[0], _base) && _vector[0] != '-') return false;
+
+    for(int unsigned _index = 1; _index < _vector.size(); _index++)
+    {
+        if(!isDigit(_vector[_index], _base)) return false;
+    }
+
+    return true;
+}
+
+int NumCon::countDigit(long long _long, int _base)
 {
     /* Counts the number of digits in the given
-     * integer, always in base 10.*/
+     * integer, in ANY base.*/
 
     /* This algorithm works by repeated iteration
-     * through the division by 10, until it yields
+     * through the division by base, until it yields
      * 0.
      * Each division "takes off" 1 digit of the number.
      * It is important to recall that the number 0
@@ -260,14 +297,14 @@ int NumCon::countDigit(int _int)
 
     do
     {
-        _int /= 10;
+        _long /= _base;
         _digitCounter ++;
-    }while(_int != 0);
+    }while(_long != 0);
 
     return _digitCounter;
 }
 
-int NumCon::countDigit(std::string _str)
+int NumCon::countDigit(std::string _str, int _base)
 {
     /* Counts the number of digits on a string if it is
      * a number.
@@ -276,12 +313,20 @@ int NumCon::countDigit(std::string _str)
      * If the string doesn't hold a number returns -1;*/
 
     //The string must hold a number.
-    if(isNumber(_str))
+    if(isNumber(_str, _base))
     {
         if(_str[0] == '-') return _str.size() - 1;
         else return _str.size();
     }
     else return -1;
+}
+
+unsigned long long NumCon::maxValue(int _base, int _digitNum)
+{
+    /* Returns the max absolute value possible for
+     * a given number of digits in any base. */
+
+    return pow(_base, _digitNum) - 1;
 }
 
 /* Adapt to more types conversion and including limits and boundaries
