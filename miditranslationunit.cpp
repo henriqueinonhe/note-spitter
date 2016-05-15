@@ -1,4 +1,5 @@
 #include "miditranslationunit.h"
+#include "numericconverter.h"
 
 MidiTranslationUnit::MidiTranslationUnit()
 {
@@ -140,7 +141,7 @@ unsigned long MidiTranslationUnit::maxValueVlq(int _byteNumber)
 int MidiTranslationUnit::byteNumberVlq(unsigned long _value)
 {
     /*Maybe this could be optimised using a value table
-     * to do the convertions given the fact that
+     * to do the conversions given the fact that
      * there aren't really many conversion options*/
 
     //Returns the number of bytes necessary to represent
@@ -179,21 +180,23 @@ void MidiTranslationUnit::writeToHeader()
     //Writes the data from sampleHeader to the
     //target's header file
 
-    static const unsigned int trackHeaderByteComplement = 33;
+    static const unsigned int headerEndPos = 0x68;
 
     //Writes the header to the buffer
-    char *_buffer = new char[0x67 + 1];
+    char *_buffer = new char[headerEndPos];
 
-    sampleHeader.read(_buffer, 0x67 + 1);
-    outputFile.write(_buffer, 0x67 + 1);
+    sampleHeader.read(_buffer, headerEndPos);
+    outputFile.write(_buffer, headerEndPos);
 }
 
 void MidiTranslationUnit::writeData()
 {
-    //Writes the data from outputData to the outputFile
+    //Writes the data from outputData to the outputFile, after the header
     static const unsigned int byteNumberPosition = 0x43;
     static const unsigned int trackHeaderByteComplement = 33;
+    static const unsigned int headerEndPos = 0x68;
 
+    outputFile.seekp(headerEndPos, std::ios_base::beg);
     outputFile.write(reinterpret_cast<char*>(outputData.data()), outputData.size());
 
     //Writing Number of Bytes in the header
@@ -201,11 +204,7 @@ void MidiTranslationUnit::writeData()
     //than 4 bytes, we push the ones we have to the end
     //and insert the missing bytes at the beginning of the vector
     //with the value of 0x00
-    std::vector<unsigned char> _buffer = convertByteNumber(outputData.size() + trackHeaderByteComplement);
-    for(int _offset = _buffer.size(); _offset < 4; _offset = _buffer.size())
-    {
-        _buffer.insert(_buffer.begin(), 0x00);
-    }
+    std::vector<char> _buffer = NumCon::convertToVector(outputData.size() + trackHeaderByteComplement, 256, 4, ' ');
     outputFile.seekp(byteNumberPosition, std::ios_base::beg);
     outputFile.write(reinterpret_cast<char*>(_buffer.data()), 4);
 
@@ -229,25 +228,11 @@ void MidiTranslationUnit::writeTimeClock()
 {
     //Writes the Time Clock
     static const unsigned int timeClockPosition = 0x0c;
-    char *_buffer = new char[2];
-    _buffer[0] = timeClock/0x100;
-    _buffer[1] = timeClock%0x100;
+    std::vector<char> _buffer = NumCon::convertToVector(timeClock, 256, 2, NUL);
 
     outputFile.seekp(timeClockPosition, std::ios_base::beg);
-    outputFile.write(_buffer, 2);
+    outputFile.write(reinterpret_cast<char*>(_buffer.data()), 2);
 
-}
-
-std::vector<unsigned char> MidiTranslationUnit::convertByteNumber(unsigned int _value)
-{
-    std::vector<unsigned char> _converted(4, 0);
-
-    _converted[0] = _value/0x1000000;
-    _converted[1] = (_value/0x10000)%0x100;
-    _converted[2] = (_value/0x100)%0x100;
-    _converted[3] = _value%0x100;
-
-    return _converted;
 }
 
 void MidiTranslationUnit::setTimeClock(int _clock)
