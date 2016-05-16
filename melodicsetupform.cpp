@@ -154,6 +154,6 @@ int MelodicSetupForm::translatePitch(QString _str)
 
 void MelodicSetupForm::showRhythmicSetupForm()
 {
-
+    rhythmicSetupWindow.show();
 }
 

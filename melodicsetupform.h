@@ -6,6 +6,7 @@
 #include <QSpinBox>
 
 #include "melodicsetup.h"
+#include "rhythmicsetupform.h"
 
 namespace Ui {
 class MelodicSetupForm;
@@ -28,6 +29,7 @@ class MelodicSetupForm : public QWidget
         QValidator *pitchValidator;
         QSpinBox *PesoNotas[MelodicSetup::notesTotal];
         QSpinBox *PesoIntervalos[MelodicSetup::intervalsTotal];
+        RhythmicSetupForm rhythmicSetupWindow;
 
     private slots:
         void checkEnablePushButtonOK();

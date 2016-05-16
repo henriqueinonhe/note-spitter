@@ -28,8 +28,8 @@ class MelodicSolfege : public MelodicSetup, public RhythmicSetup
                        int _barNumber,
                        int _slurChance,
                        std::array<int, cellsTotal> _cellsWeightArray);
+        std::vector<Note> getNoteArray();
         pcg32 randomNumberGenerator;
-        std::vector<Note> noteArray;
 
     private:
         void setupRhythm();
@@ -40,7 +40,7 @@ class MelodicSolfege : public MelodicSetup, public RhythmicSetup
         bool hasSlur();
         float convertTimeMeasure(float _duration);
         unsigned char generatePitch();
-        //std::vector<Note> noteArray;
+        std::vector<Note> noteArray;
         bool firstNote;
 };
 

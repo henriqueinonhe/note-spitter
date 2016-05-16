@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     unit.setTimeClock(960);
     unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\Midi Study\\NEWSAMPLE.mid");
     unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
-    unit.translateToMidi(instance.noteArray);
+    unit.translateToMidi(instance.getNoteArray());
     unit.writeToFile();
 
 
@@ -58,15 +58,15 @@ int main(int argc, char *argv[])
     /*This is a debug section to check if everything is allright*/
 
     float _duration = 0;
-    for(unsigned int i = 0; i < instance.noteArray.size(); i++)
+    for(unsigned int i = 0; i < instance.getNoteArray().size(); i++)
     {
-        std::cout << "Duration: " << instance.noteArray[i].getDuration()
+        std::cout << "Duration: " << instance.getNoteArray()[i].getDuration()
                   << " " << "Pitch: "
-                  << (int) instance.noteArray[i].getPitch()
+                  << (int) instance.getNoteArray()[i].getPitch()
                   << std::endl;
-        if(instance.noteArray[i].getDuration() > 0)
-            _duration += instance.noteArray[i].getDuration();
-        else _duration -= instance.noteArray[i].getDuration();
+        if(instance.getNoteArray()[i].getDuration() > 0)
+            _duration += instance.getNoteArray()[i].getDuration();
+        else _duration -= instance.getNoteArray()[i].getDuration();
     }
 
     std::cout << "Total Duration: " << _duration << std::endl;

@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     melodicsolfege.cpp \
     miditranslationunit.cpp \
     intro.cpp \
-    melodicsetupform.cpp
+    melodicsetupform.cpp \
+    rhythmicsetupform.cpp
 
 HEADERS += \
     note.h \
@@ -26,8 +27,10 @@ HEADERS += \
     musicenums.h \
     numericconverter.hpp \
     intro.h \
-    melodicsetupform.h
+    melodicsetupform.h \
+    rhythmicsetupform.h
 
 FORMS += \
     intro.ui \
-    melodicsetupform.ui
+    melodicsetupform.ui \
+    rhythmicsetupform.ui

@@ -261,7 +261,10 @@ unsigned char MelodicSolfege::generatePitch() /*This can be optimized*/
     return _actualNote;
 }
 
-
+std::vector<Note> MelodicSolfege::getNoteArray()
+{
+    return noteArray;
+}
 
 
 
