@@ -9,6 +9,7 @@
 
 #include "musicenums.h"
 #include "note.h"
+#include "numericconverter.hpp"
 
 class MidiTranslationUnit
 {

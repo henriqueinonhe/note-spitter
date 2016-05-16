@@ -6,6 +6,7 @@
 #include "miditranslationunit.h"
 #include "melodicsolfege.h"
 #include "pcg_random.hpp"
+#include "numericconverter.hpp"
 
 int main()
 {
@@ -59,4 +60,8 @@ int main()
     }
 
     std::cout << "Total Duration: " << _duration << std::endl;
+
+    std::vector<int> _vec(5, 12);
+
+    std::cout << NumCon::convertFromVector(_vec, 16) << std::endl;
 }

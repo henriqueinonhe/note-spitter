@@ -1,5 +1,5 @@
-#ifndef NUMERICCONVERTER_H
-#define NUMERICCONVERTER_H
+#ifndef NUMERICCONVERTER_HPP
+#define NUMERICCONVERTER_HPP
 
 #include <vector>
 #include <string>
@@ -38,7 +38,7 @@ namespace NumCon
 }
 //Definitions
 
-int NumCon::charToInt(char _char, int _base)
+inline int NumCon::charToInt(char _char, int _base)
 {
     /* Converts the target char to int
      * in the given base, from 2 up to 36.
@@ -67,7 +67,7 @@ int NumCon::charToInt(char _char, int _base)
     return -1;
 }
 
-char NumCon::intToChar(int _int, int _base, LetterCase _case)
+inline char NumCon::intToChar(int _int, int _base, LetterCase _case)
 {
     /* Converts target integer to char taking into
      * consideration the lettter case.
@@ -102,7 +102,7 @@ char NumCon::intToChar(int _int, int _base, LetterCase _case)
     return NUL;
 }
 
-std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
+inline std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
 {
     /* Converts and integer to an string in the
      * given base, which must be between
@@ -129,7 +129,7 @@ std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
     }
 }
 
-long long NumCon::strToInt(std::string _str, int _base)
+inline long long NumCon::strToInt(std::string _str, int _base)
 {
     /* Converts the entire string to an integer
      * in the given base.
@@ -204,7 +204,7 @@ long long NumCon::strToInt(std::string _str, int _base)
     }
 }
 
-bool NumCon::isDigit(char _char, int _base)
+inline bool NumCon::isDigit(char _char, int _base)
 {
     /* Returns true if the character is a digit in
      * the given base and false otherwise.
@@ -238,7 +238,7 @@ bool NumCon::isDigit(char _char, int _base)
     }
 }
 
-bool NumCon::isNumber(std::string _str, int _base)
+inline bool NumCon::isNumber(std::string _str, int _base)
 {
     /* Checks if the string only contain digits
      * in a given base and at most a minus (-) sign
@@ -265,7 +265,7 @@ bool NumCon::isNumber(std::string _str, int _base)
     return true;
 }
 
-bool NumCon::isNumber(std::vector<char> _vector, int _base)
+inline bool NumCon::isNumber(std::vector<char> _vector, int _base)
 {
     /* Checks if the vector only contain digits
      * in a given base and at most a minus (-) sign
@@ -291,7 +291,7 @@ bool NumCon::isNumber(std::vector<char> _vector, int _base)
     return true;
 }
 
-int NumCon::countDigit(long long _long, int _base)
+inline int NumCon::countDigit(long long _long, int _base)
 {
     /* Counts the number of digits in the given
      * integer, in ANY base.*/
@@ -314,7 +314,7 @@ int NumCon::countDigit(long long _long, int _base)
     return _digitCounter;
 }
 
-int NumCon::countDigit(std::string _str, int _base)
+inline int NumCon::countDigit(std::string _str, int _base)
 {
     /* Counts the number of digits on a string if it is
      * a number.
@@ -331,7 +331,7 @@ int NumCon::countDigit(std::string _str, int _base)
     else return -1;
 }
 
-unsigned long long NumCon::maxValue(int _base, int _digitNum)
+inline unsigned long long NumCon::maxValue(int _base, int _digitNum)
 {
     /* Returns the max absolute value possible for
      * a given number of digits in any base. */
@@ -339,7 +339,7 @@ unsigned long long NumCon::maxValue(int _base, int _digitNum)
     return pow(_base, _digitNum) - 1;
 }
 
-std::vector<int> NumCon::convertToVector(long long _int, int _base, int _digitNum)
+inline std::vector<int> NumCon::convertToVector(long long _int, int _base, int _digitNum)
 {
     /* This function converts _int to a vector where each
      * digit occupies a different element of the vector in the
@@ -372,7 +372,7 @@ std::vector<int> NumCon::convertToVector(long long _int, int _base, int _digitNu
     }
 }
 
-std::vector<char> NumCon::convertToVector(long long _int, int _base, int _digitNum, char)
+inline std::vector<char> NumCon::convertToVector(long long _int, int _base, int _digitNum, char)
 {
     /* This function converts _int to a vector where each
      * digit occupies a different element of the vector in the
@@ -406,7 +406,7 @@ std::vector<char> NumCon::convertToVector(long long _int, int _base, int _digitN
     }
 }
 
-long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
+inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
 {
     /* Converts the numbers in given vector and base
      * to an integer (long long).
@@ -420,7 +420,15 @@ long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
 
     for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
     {
-        _int = *_iterator * pow(_base, _power);
+        //Checking if the base is respected
+        if(*_iterator >= _base)
+        {
+            std::cout << "There is a number which surpasses the given base!\n";
+            return LLONG_MAX;
+        }
+
+        _int += *_iterator * pow(_base, _power);
+
         if(_previousInt > _int)
         {
             std::cout << "Overflow!\n";
@@ -435,7 +443,7 @@ long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
     return _int;
 }
 
-long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
+inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
 {
     /* Converts the numbers in given vector and base
      * to an integer (long long).
@@ -449,7 +457,15 @@ long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
 
     for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
     {
-        _int = *_iterator * pow(_base, _power);
+        //Checking if the base is respected
+        if(*_iterator >= _base)
+        {
+            std::cout << "There is a number which surpasses the given base!\n";
+            return LLONG_MAX;
+        }
+
+        _int += (unsigned char)(*_iterator) * pow(_base, _power);
+
         if(_previousInt > _int)
         {
             std::cout << "Overflow!\n";
@@ -465,4 +481,4 @@ long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
 }
 
 
-#endif // NUMERICCONVERTER_H
+#endif // NUMERICCONVERTER_HPP

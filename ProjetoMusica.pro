@@ -25,4 +25,4 @@ HEADERS += \
     pcg_extras.hpp \
     miditranslationunit.h \
     musicenums.h \
-    numericconverter.h
+    numericconverter.hpp

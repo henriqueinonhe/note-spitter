@@ -1,5 +1,4 @@
 #include "miditranslationunit.h"
-#include "numericconverter.h"
 
 MidiTranslationUnit::MidiTranslationUnit()
 {
