@@ -1,12 +1,9 @@
-QT += core
-QT -= gui
 
-CONFIG += c++11
+QT       += core gui
 
-TARGET = ProjetoMusica
-CONFIG += console
-CONFIG -= app_bundle
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+TARGET = Project5
 TEMPLATE = app
 
 SOURCES += main.cpp \
@@ -14,7 +11,8 @@ SOURCES += main.cpp \
     rhythmicsetup.cpp \
     melodicsetup.cpp \
     melodicsolfege.cpp \
-    miditranslationunit.cpp
+    miditranslationunit.cpp \
+    intro.cpp
 
 HEADERS += \
     note.h \
@@ -25,4 +23,8 @@ HEADERS += \
     pcg_extras.hpp \
     miditranslationunit.h \
     musicenums.h \
-    numericconverter.hpp
+    numericconverter.hpp \
+    intro.h
+
+FORMS += \
+    intro.ui

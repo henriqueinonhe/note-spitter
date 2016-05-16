@@ -10,7 +10,9 @@
 #include "pcg_random.hpp"
 #include "numericconverter.hpp"
 
-int main()
+#include "intro.h"
+
+int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Intro w;
