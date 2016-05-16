@@ -29,7 +29,6 @@ class MidiTranslationUnit
         int byteNumberVlq(unsigned long _value);
         std::vector<unsigned char> dataToVlq(unsigned long _value);
         std::vector<unsigned char> formatTimeValue(float _value);
-        std::vector<unsigned char> convertByteNumber(unsigned int _value);
         void writeToHeader();
         void writeData();
         void writeTimeSignature();

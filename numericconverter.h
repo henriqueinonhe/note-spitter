@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <array>
 #include <iostream>
 #include <math.h>
 #include <limits>
@@ -25,16 +24,18 @@ namespace NumCon
     int charToInt(char _char, int _base = 10);
     char intToChar(int _int, int _base = 10, LetterCase _case = LOWERCASE);
     std::string intToStr(long long _int, int _base = 10, LetterCase _case = LOWERCASE);
-    int strToInt(std::string _str, int _base = 10);
+    long long strToInt(std::string _str, int _base = 10);
     bool isDigit(char _char, int _base = 10);
     bool isNumber(std::string _str, int _base = 10);
     bool isNumber(std::vector<char> _vector, int _base = 10);
     int countDigit(long long _long, int _base = 10);
     int countDigit(std::string _str, int _base = 36);
     unsigned long long maxValue(int _base, int _digitNum);
-
+    std::vector<int> convertToVector(long long _int, int _base, int _digitNum);
+    std::vector<char> convertToVector(long long _int, int _base, int _digitNum, char);
+    long long convertFromVector(std::vector<int> _vector, int _base);
+    long long convertFromVector(std::vector<char> _vector, int _base);
 }
-
 //Definitions
 
 int NumCon::charToInt(char _char, int _base)
@@ -128,15 +129,18 @@ std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
     }
 }
 
-int NumCon::strToInt(std::string _str, int _base)
+long long NumCon::strToInt(std::string _str, int _base)
 {
     /* Converts the entire string to an integer
      * in the given base.
      * Supports negative integers.
      * If it is not possible to be converted returns
-     * -99999999.*/
+     * LLONG_MAX.
+     * If the convertion makes the number overflow
+     * it also returns LLONG_MAX. */
 
-    int _int = 0;
+    long long _int = 0;
+    long long _previousInt = 0; //Overflow check
 
     /* First it checks if the given string
      * is a number in the given base.*/
@@ -163,6 +167,12 @@ int NumCon::strToInt(std::string _str, int _base)
             {
                 _int += (*_iterator - 'a' + 10) * pow(_base, _power);
             }
+            if(_previousInt > _int)
+            {
+                std::cout << "Overflow!\n";
+                return LLONG_MAX;
+            }
+            else _previousInt = _int;
         }
 
         /*Dealing with the last digit*/
@@ -190,7 +200,7 @@ int NumCon::strToInt(std::string _str, int _base)
     else
     {
         std::cout << "Conversion failed!\n";
-        return -99999999;
+        return LLONG_MAX;
     }
 }
 
@@ -329,8 +339,130 @@ unsigned long long NumCon::maxValue(int _base, int _digitNum)
     return pow(_base, _digitNum) - 1;
 }
 
-/* Adapt to more types conversion and including limits and boundaries
- * This is very important, I need to make a revision of this and implement
- * everything carefully to prevent conversion errors and problems and etc.*/
+std::vector<int> NumCon::convertToVector(long long _int, int _base, int _digitNum)
+{
+    /* This function converts _int to a vector where each
+     * digit occupies a different element of the vector in the
+     * given base.
+     * This function is mainly used to convert a number
+     * to some base to be used in some kind of codification
+     * like hexadecimal.
+     * The _digitNum parameter defines how many spaces
+     * in the vector are gonna be used and also serves as
+     * a security measure, because if the this number is less than
+     * what is necessary the function returns a vector
+     * with 0's only. */
+
+    std::vector<int> _vector(_digitNum, 0);
+
+    if(countDigit(_int, _base) <= _digitNum)
+    {
+        for(auto _iterator = _vector.rbegin(); _int != 0; _iterator++)
+        {
+            *_iterator = _int % _base;
+            _int /= _base;
+        }
+
+        return _vector;
+    }
+    else
+    {
+        std::cout << "The numer of digits requested is not enough to hold this number in the given base!\n";
+        return _vector;
+    }
+}
+
+std::vector<char> NumCon::convertToVector(long long _int, int _base, int _digitNum, char)
+{
+    /* This function converts _int to a vector where each
+     * digit occupies a different element of the vector in the
+     * given base.
+     * This function is mainly used to convert a number
+     * to some base to be used in some kind of codification
+     * like hexadecimal.
+     * The _digitNum parameter defines how many spaces
+     * in the vector are gonna be used and also serves as
+     * a security measure, because if the this number is less than
+     * what is necessary the function returns a vector
+     * with 0's only.
+     * This version of the function is designed to work with char vectors. */
+
+    std::vector<char> _vector(_digitNum, 0);
+
+    if(countDigit(_int, _base) <= _digitNum)
+    {
+        for(auto _iterator = _vector.rbegin(); _int != 0; _iterator++)
+        {
+            *_iterator = _int % _base;
+            _int /= _base;
+        }
+
+        return _vector;
+    }
+    else
+    {
+        std::cout << "The numer of digits requested is not enough to hold this number in the given base!\n";
+        return _vector;
+    }
+}
+
+long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
+{
+    /* Converts the numbers in given vector and base
+     * to an integer (long long).
+     * Any base is supported.
+     * If the conversion makes the long long overflow it returns
+     * LLONG_MAX */
+
+    long long _int = 0;
+    long long _previousInt = 0;
+    int _power = 0;
+
+    for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
+    {
+        _int = *_iterator * pow(_base, _power);
+        if(_previousInt > _int)
+        {
+            std::cout << "Overflow!\n";
+            return LLONG_MAX;
+        }
+        else
+        {
+            _previousInt = _int;
+        }
+    }
+
+    return _int;
+}
+
+long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
+{
+    /* Converts the numbers in given vector and base
+     * to an integer (long long).
+     * Any base is supported.
+     * If the conversion makes the long long overflow it returns
+     * LLONG_MAX */
+
+    long long _int = 0;
+    long long _previousInt = 0;
+    int _power = 0;
+
+    for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
+    {
+        _int = *_iterator * pow(_base, _power);
+        if(_previousInt > _int)
+        {
+            std::cout << "Overflow!\n";
+            return LLONG_MAX;
+        }
+        else
+        {
+            _previousInt = _int;
+        }
+    }
+
+    return _int;
+}
+
 
 #endif // NUMERICCONVERTER_H
