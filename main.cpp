@@ -1,3 +1,5 @@
+#include <QApplication>
+
 #include <iostream>
 #include <array>
 #include <cmath>
@@ -10,6 +12,12 @@
 
 int main()
 {
+    QApplication a(argc, argv);
+    Intro w;
+    w.show();
+
+    return a.exec();
+
     std::array<int, 12> notesWeight;
     std::array<int, 24> intervalsWeight;
     std::array<int, 9> cellsWeight;
@@ -60,8 +68,4 @@ int main()
     }
 
     std::cout << "Total Duration: " << _duration << std::endl;
-
-    std::vector<int> _vec(5, 12);
-
-    std::cout << NumCon::convertFromVector(_vec, 16) << std::endl;
 }
