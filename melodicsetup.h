@@ -9,7 +9,7 @@ class MelodicSetup
 {
     public:
         static const int notesTotal = 12;
-        static const int intervalsTotal = 24;
+        static const int intervalsTotal = 25;
 
     protected:
         void formatWeightMelodic();

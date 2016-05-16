@@ -1,5 +1,6 @@
 #include "intro.h"
 #include "ui_intro.h"
+#include "melodicsetupform.h"
 
 Intro::Intro(QWidget *parent) :
     QWidget(parent),
@@ -10,8 +11,8 @@ Intro::Intro(QWidget *parent) :
     setFixedSize(size());
 
     //pushButtonSM
-    //connect(ui->pushButtonSM, SIGNAL(clicked(bool)),
-      //      this, SLOT(show_melodic_setup()));
+    connect(ui->pushButtonSM, SIGNAL(clicked(bool)),
+            this, SLOT(showMelodicSetupForm()));
     connect(ui->pushButtonSM, SIGNAL(clicked(bool)),
             this, SLOT(close()));
 
@@ -27,4 +28,9 @@ Intro::Intro(QWidget *parent) :
 Intro::~Intro()
 {
     delete ui;
+}
+
+void Intro::showMelodicSetupForm()
+{
+    melodicSetupWindow.show();
 }

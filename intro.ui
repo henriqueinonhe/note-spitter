@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Intro</class>
  <widget class="QWidget" name="Intro">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,17 +14,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Gerador de Exercícios</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QPushButton" name="pushButtonSR">
-     <property name="text">
-      <string>Solfejo Rítmico</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Gerador de Exercícios</string>
@@ -31,10 +27,17 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QPushButton" name="pushButtonSM">
      <property name="text">
       <string>Solfejo Melódico</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonSR">
+     <property name="text">
+      <string>Solfejo Rítmico</string>
      </property>
     </widget>
    </item>

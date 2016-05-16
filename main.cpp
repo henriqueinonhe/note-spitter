@@ -15,13 +15,13 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Intro w;
-    w.show();
+    Intro introWindow;
+    introWindow.show();
 
     return a.exec();
 
     std::array<int, 12> notesWeight;
-    std::array<int, 24> intervalsWeight;
+    std::array<int, 25> intervalsWeight;
     std::array<int, 9> cellsWeight;
     notesWeight.fill(0), intervalsWeight.fill(1), cellsWeight.fill(1);
     notesWeight[0] = 1;

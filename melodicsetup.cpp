@@ -16,7 +16,7 @@ void MelodicSetup::formatWeightMelodic()
     //Formatting intervalsWeight for further use
     IntervalName _interval;
 
-    for(_interval = UNISON; _interval <= MAJOR_FOURTEENTH; _interval = static_cast<IntervalName>(_interval + 1))
+    for(_interval = UNISON; _interval <= PERFECT_FIFTEENTH; _interval = static_cast<IntervalName>(_interval + 1))
     {
         for(_index = 0; _index < intervalsWeight[_interval]; _index++)
         {
