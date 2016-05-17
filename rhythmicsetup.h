@@ -16,8 +16,8 @@ class RhythmicSetup
         static const int cellsTotal = 39;
 
     protected:
-        bool setSlurChance(int _value);
-        void setCellsWeight(std::array<int, cellsTotal> _array);
+        bool setSlurChance(const int _value);
+        void setCellsWeight(const std::array<int, cellsTotal> &_array);
         void formatWeightRhythmic();
         int pulseNumber;
         PulseMeasureValidFigures pulseMeasure;

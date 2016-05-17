@@ -4,18 +4,18 @@
 class Note
 {
     public:
-        Note(unsigned char _pitch = 0, float _duration = 0);
-        unsigned char getPitch();
-        float getDuration();
-        void setPitch(unsigned char _pitch);
-        void setDuration(float _duration);
-        void incrementDuration(float _duration);
-        bool isRest();
+        Note(const unsigned char _pitch = 0, const double _duration = 0);
+        unsigned char getPitch() const;
+        double getDuration() const;
+        void setPitch(const unsigned char _pitch);
+        void setDuration(const double _duration);
+        void incrementDuration(const double _duration);
+        bool isRest() const;
         ~Note();
 
     private:
         unsigned char pitch;
-        float duration;
+        double duration;
 };
 
 #endif

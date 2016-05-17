@@ -1,36 +1,36 @@
 #include "note.h"
 
-Note::Note(unsigned char _pitch, float _duration) : pitch(_pitch), duration(_duration)
+Note::Note(const unsigned char _pitch, const double _duration) : pitch(_pitch), duration(_duration)
 {
 
 }
 
-unsigned char Note::getPitch()
+unsigned char Note::getPitch() const
 {
     return pitch;
 }
 
-float Note::getDuration()
+double Note::getDuration() const
 {
     return duration;
 }
 
-void Note::setPitch(unsigned char _pitch)
+void Note::setPitch(const unsigned char _pitch)
 {
     pitch = _pitch;
 }
 
-void Note::setDuration(float _duration)
+void Note::setDuration(const double _duration)
 {
     duration = _duration;
 }
 
-void Note::incrementDuration(float _duration)
+void Note::incrementDuration(const double _duration)
 {
     duration += _duration;
 }
 
-bool Note::isRest()
+bool Note::isRest() const
 {
     return duration < 0;
 }

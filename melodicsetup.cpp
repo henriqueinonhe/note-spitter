@@ -25,7 +25,7 @@ void MelodicSetup::formatWeightMelodic()
     }
 }
 
-void MelodicSetup::setNotesWeight(std::array<int, notesTotal> _array)
+void MelodicSetup::setNotesWeight(const std::array<int, notesTotal> &_array)
 {
     for(int _index = 0; _index < notesTotal; _index++)
     {
@@ -33,7 +33,7 @@ void MelodicSetup::setNotesWeight(std::array<int, notesTotal> _array)
     }
 }
 
-void MelodicSetup::setIntervalsWeight(std::array<int, intervalsTotal> _array)
+void MelodicSetup::setIntervalsWeight(const std::array<int, intervalsTotal> &_array)
 {
     for(int _index = 0; _index < intervalsTotal; _index++)
     {

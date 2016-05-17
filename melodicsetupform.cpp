@@ -15,6 +15,7 @@ MelodicSetupForm::MelodicSetupForm(QWidget *parent) :
     pitchValidator = new QRegularExpressionValidator(rx, this);
     ui->lineEditLimiteSuperior->setValidator(pitchValidator);
     ui->lineEditLimiteInferior->setValidator(pitchValidator);
+    ui->lineEditFirstPitch->setValidator(pitchValidator);
 
     //Assign SpinBox to Arrays
     spinBoxToArray();
@@ -112,11 +113,14 @@ void MelodicSetupForm::checkEnablePushButtonOK()
     /* Enables pushButtonOK if allowed. */
 
     QString _s1 = ui->lineEditLimiteInferior->text(), _s2 = ui->lineEditLimiteSuperior->text();
+    QString _s3 = ui->lineEditFirstPitch->text();
     int pos = 0;
 
     ui->pushButtonOK->setEnabled(pitchValidator->validate(_s1, pos) == QValidator::Acceptable &&
                                  pitchValidator->validate(_s2, pos) == QValidator::Acceptable &&
-                                 translatePitch(_s1) <= translatePitch(_s2));
+                                 pitchValidator->validate(_s3, pos) == QValidator::Acceptable &&
+                                 translatePitch(_s1) <= translatePitch(_s2) &&
+                                 translatePitch(_s1) <= translatePitch(_s3) && translatePitch(_s3) <= translatePitch(_s2));
 
 }
 

@@ -2,7 +2,7 @@
 
 //Public
 
-bool RhythmicSetup::setSlurChance(int _value)
+bool RhythmicSetup::setSlurChance(const int _value)
 {
     if(_value <= 100)
     {
@@ -12,7 +12,7 @@ bool RhythmicSetup::setSlurChance(int _value)
     else return false;
 }
 
-void RhythmicSetup::setCellsWeight(std::array<int, cellsTotal> _array)
+void RhythmicSetup::setCellsWeight(const std::array<int, cellsTotal> &_array)
 {
     for(int _index = 0; _index < cellsTotal; _index++)
     {

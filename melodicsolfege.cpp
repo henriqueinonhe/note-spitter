@@ -1,18 +1,18 @@
 #include "melodicsolfege.h"
 
 MelodicSolfege::MelodicSolfege(//Melodic Setup Attributes
-                               int _highestPitch,
-                               int _lowestPitch, int _firstPitch,
-                               std::array<int, notesTotal> _notesWeightArray,
-                               std::array<int, intervalsTotal> _intervalsWeightArray,
-                               bool _noLoop,
+                               const int _highestPitch,
+                               const int _lowestPitch, int _firstPitch,
+                               const std::array<int, notesTotal> &_notesWeightArray,
+                               const std::array<int, intervalsTotal> &_intervalsWeightArray,
+                               const bool _noLoop,
                                //Rhythmic Setup Attributes
-                               int _pulseNumber,
+                               const int _pulseNumber,
                                PulseMeasureValidFigures _pulseMeasure,
                                TimeSignatureMeter _meter,
-                               int _barNumber,
-                               int _slurChance,
-                               std::array<int, cellsTotal> _cellsWeightArray) : firstNote(true)
+                               const int _barNumber,
+                               const int _slurChance,
+                               const std::array<int, cellsTotal> &_cellsWeightArray) : firstNote(true)
 {
     //Setting up the random number generator
     randomNumberGenerator.seed(time(NULL));
@@ -27,8 +27,6 @@ MelodicSolfege::MelodicSolfege(//Melodic Setup Attributes
     this->setIntervalsWeight(_intervalsWeightArray);
     this->formatWeightMelodic();
     noLoop = _noLoop;
-    //First Pitch random generated inside pitch boundaries
-    firstPitch =  randomNumberGenerator(highestPitch - lowestPitch) + lowestPitch;
 
     //RhythmicSetup
     pulseNumber = _pulseNumber;
@@ -146,7 +144,7 @@ void MelodicSolfege::createCell(int _case)
     }
 }
 
-void MelodicSolfege::newNote(float _duration)
+void MelodicSolfege::newNote(double _duration)
 {
     static Note _newNoteModel;
 
@@ -172,7 +170,7 @@ void MelodicSolfege::newNote(float _duration)
     }
 }
 
-void MelodicSolfege::newRest(float _duration)
+void MelodicSolfege::newRest(double _duration)
 {
     static Note _newRestModel;
 
@@ -202,7 +200,7 @@ bool MelodicSolfege::hasSlur()
     return randomNumberGenerator(100) < static_cast<unsigned int>(slurChance);
 }
 
-float MelodicSolfege::convertTimeMeasure(float _duration)
+double MelodicSolfege::convertTimeMeasure(double _duration)
 {
     switch(pulseMeasure)
     {
@@ -212,7 +210,6 @@ float MelodicSolfege::convertTimeMeasure(float _duration)
         case MEASURE_SIXTEENTH: return _duration/48;
         case MEASURE_THIRTYSECOND: return _duration/96;
     }
-
 }
 
 unsigned char MelodicSolfege::generatePitch() /*This can be optimized*/
@@ -273,7 +270,7 @@ unsigned char MelodicSolfege::generatePitch() /*This can be optimized*/
     return _actualNote;
 }
 
-std::vector<Note> MelodicSolfege::getNoteArray()
+const std::vector<Note> &MelodicSolfege::getNoteArray() const
 {
     return noteArray;
 }

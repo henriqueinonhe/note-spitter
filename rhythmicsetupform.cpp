@@ -53,6 +53,8 @@ void RhythmicSetupForm::setConnections()
     connect(ui->pushButtonCancel_2, SIGNAL(clicked(bool)),
             this, SLOT(close()));
     connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
+            this, SLOT(close()));
+    connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
             this, SLOT(MAGIC()));
 }
 
@@ -117,6 +119,8 @@ std::array<int, RhythmicSetup::cellsTotal> RhythmicSetupForm::getPesoCelulas()
     {
         _array[_index] = pesoCelulas[_index]->value();
     }
+
+    return _array;
 }
 
 int RhythmicSetupForm::getBarNumber()
@@ -136,7 +140,7 @@ int RhythmicSetupForm::getSlurChance()
 
 PulseMeasureValidFigures RhythmicSetupForm::getPulseMeasure()
 {
-    switch(ui->comboBoxCompasso_2->currentData().toInt())
+    switch(ui->comboBoxCompasso_2->currentText().toInt())
     {
         case 2: return MEASURE_HALF;
         case 4: return MEASURE_QUARTER;
@@ -162,6 +166,28 @@ void RhythmicSetupForm::MAGIC()
     hold.slurChance = getSlurChance();
     hold.cellsWeight = getPesoCelulas();
 
+    MelodicSolfege instance(hold.highestPitch,
+                            hold.lowestPitch,
+                            hold.firstPitch,
+                            hold.notesWeight,
+                            hold.intervalsWeight,
+                            hold.noLoop,
+                            hold.pulseNumber,
+                            hold.pulseMeasure,
+                            hold.meter,
+                            hold.barNumber,
+                            hold.slurChance,
+                            hold.cellsWeight);
+
+    MidiTranslationUnit unit;
+
+    unit.setPulseNumber(hold.pulseNumber);
+    unit.setPulseMeasure(hold.pulseMeasure);
+    unit.setTimeClock(960);
+    unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\Midi Study\\NEWSAMPLE.mid");
+    unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
+    unit.translateToMidi(instance.getNoteArray());
+    unit.writeToFile();
 
 }
 

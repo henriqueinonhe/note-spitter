@@ -26,12 +26,12 @@ bool MidiTranslationUnit::setSampleHeaderAddress(const std::string &_address)
     return sampleHeader.is_open();
 }
 
-void MidiTranslationUnit::setPulseMeasure(PulseMeasureValidFigures _pulseMeasure)
+void MidiTranslationUnit::setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure)
 {
     pulseMeasure = _pulseMeasure;
 }
 
-void MidiTranslationUnit::translateToMidi( std::vector<Note> &_input)
+void MidiTranslationUnit::translateToMidi(const std::vector<Note> &_input)
 {
     unsigned int _index = 0;
     //First Instruction
@@ -100,7 +100,7 @@ bool MidiTranslationUnit::translateToNote()
 
 }
 
-std::vector<unsigned char> MidiTranslationUnit::dataToVlq(unsigned long _value)
+std::vector<unsigned char> MidiTranslationUnit::dataToVlq(const unsigned long _value)
 {
     //Converts the value to its correspondent VLQ representation
     //and stores it in a string
@@ -118,7 +118,7 @@ std::vector<unsigned char> MidiTranslationUnit::dataToVlq(unsigned long _value)
 
 }
 
-unsigned long MidiTranslationUnit::maxValueVlq(int _byteNumber)
+unsigned long MidiTranslationUnit::maxValueVlq(const int _byteNumber)
 {
     //Returns the maximum value represented byte
     //the _byteNumber byte VLQ representation
@@ -137,7 +137,7 @@ unsigned long MidiTranslationUnit::maxValueVlq(int _byteNumber)
     return _max;
 }
 
-int MidiTranslationUnit::byteNumberVlq(unsigned long _value)
+int MidiTranslationUnit::byteNumberVlq(const unsigned long _value)
 {
     /*Maybe this could be optimised using a value table
      * to do the conversions given the fact that
@@ -234,12 +234,12 @@ void MidiTranslationUnit::writeTimeClock()
 
 }
 
-void MidiTranslationUnit::setTimeClock(int _clock)
+void MidiTranslationUnit::setTimeClock(const int _clock)
 {
     timeClock = _clock;
 }
 
-void MidiTranslationUnit::setPulseNumber(int _pulseNumber)
+void MidiTranslationUnit::setPulseNumber(const int _pulseNumber)
 {
     pulseNumber = _pulseNumber;
 }

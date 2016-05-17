@@ -15,8 +15,7 @@ SOURCES += main.cpp \
     intro.cpp \
     melodicsetupform.cpp \
     rhythmicsetupform.cpp \
-    outputdialog.cpp \
-    datahold.cpp
+    outputdialog.cpp
 
 HEADERS += \
     note.h \

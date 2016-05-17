@@ -15,19 +15,19 @@ class MidiTranslationUnit
 {
     public:
         MidiTranslationUnit();
-        void setTimeClock(int _clock);
+        void setTimeClock(const int _clock);
         bool setSampleHeaderAddress(const std::string &_address);
         bool setOutputFileAddress(const std::string &_address);
         bool setInputFileAddress(const std::string &_address);
-        void setPulseMeasure(PulseMeasureValidFigures _pulseMeasure);
-        void setPulseNumber(int _pulseNumber);
-        void translateToMidi(std::vector<Note> &_input);
+        void setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure);
+        void setPulseNumber(const int _pulseNumber);
+        void translateToMidi(const std::vector<Note> &_input);
         bool translateToNote();
         void writeToFile();
 
     private:
-        unsigned long maxValueVlq(int _byteNumber);
-        int byteNumberVlq(unsigned long _value);
+        unsigned long maxValueVlq(const int _byteNumber);
+        int byteNumberVlq(const unsigned long _value);
         std::vector<unsigned char> dataToVlq(unsigned long _value);
         std::vector<unsigned char> formatTimeValue(float _value);
         void writeToHeader();

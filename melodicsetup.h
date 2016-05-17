@@ -13,8 +13,8 @@ class MelodicSetup
 
     protected:
         void formatWeightMelodic();
-        void setNotesWeight(std::array<int, notesTotal> _array);
-        void setIntervalsWeight(std::array<int, intervalsTotal> _array);
+        void setNotesWeight(const std::array<int, notesTotal> &_array);
+        void setIntervalsWeight(const std::array<int, intervalsTotal> &_array);
         int highestPitch;
         int lowestPitch;
         int firstPitch;

@@ -11,6 +11,9 @@
 #include "numericconverter.hpp"
 
 #include "intro.h"
+#include "datahold.h"
+
+DataHold hold;
 
 int main(int argc, char *argv[])
 {
