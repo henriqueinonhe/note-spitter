@@ -131,6 +131,18 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         break;
 
+        //E+,S
+        case 9:
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        //S,E+
+        case 10:
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        break;
+
     }
 }
 

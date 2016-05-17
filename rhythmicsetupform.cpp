@@ -7,6 +7,8 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //Convert SpinBox Array
+
     //Setting Spin Boxes' Range
     setSpinBoxRange();
 
@@ -52,5 +54,10 @@ void RhythmicSetupForm::concatenatePercentage()
     _text.append("%");
 
     ui->labelLigadura_2->setText(_text);
+}
+
+void RhythmicSetupForm::spinBoxToArray()
+{
+
 }
 
