@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     introWindow.show();
 
     return a.exec();
-
+/*
     std::array<int, 12> notesWeight;
     std::array<int, 25> intervalsWeight;
     std::array<int, 9> cellsWeight;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     std::cout << "FINISHED!" << std::endl;
 
-    /*This is a debug section to check if everything is allright*/
+    This is a debug section to check if everything is allright
 
     float _duration = 0;
     for(unsigned int i = 0; i < instance.getNoteArray().size(); i++)
@@ -69,5 +69,5 @@ int main(int argc, char *argv[])
         else _duration -= instance.getNoteArray()[i].getDuration();
     }
 
-    std::cout << "Total Duration: " << _duration << std::endl;
+    std::cout << "Total Duration: " << _duration << std::endl;*/
 }
