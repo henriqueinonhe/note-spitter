@@ -21,7 +21,7 @@ class MidiTranslationUnit
         bool setInputFileAddress(const std::string &_address);
         void setPulseMeasure(PulseMeasureValidFigures _pulseMeasure);
         void setPulseNumber(int _pulseNumber);
-        void translateToMidi(std::vector<Note> _input);
+        void translateToMidi(std::vector<Note> &_input);
         bool translateToNote();
         void writeToFile();
 

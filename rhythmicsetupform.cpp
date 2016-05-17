@@ -19,6 +19,7 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     //Making Connections
     setConnections();
 
+    /* Testing and debugging purposes */
 }
 
 RhythmicSetupForm::~RhythmicSetupForm()
@@ -51,10 +52,8 @@ void RhythmicSetupForm::setConnections()
             this, SLOT(concatenatePercentage()));
     connect(ui->pushButtonCancel_2, SIGNAL(clicked(bool)),
             this, SLOT(close()));
-    connect(ui->radioButtonSimples_2, SIGNAL(clicked(bool)),
-            ui->groupBoxSimples, SLOT(setEnabled(bool)));
-    connect(ui->radioButtonComposto_2, SIGNAL(clicked(bool)),
-            ui->groupBoxComposto, SIGNAL(clicked(bool)));
+    connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
+            this, SLOT(MAGIC()));
 }
 
 void RhythmicSetupForm::concatenatePercentage()
@@ -108,4 +107,67 @@ void RhythmicSetupForm::spinBoxToArray()
     pesoCelulas[37] = ui->cellWeight38;
     pesoCelulas[38] = ui->cellWeight39;
 }
+
+std::array<int, RhythmicSetup::cellsTotal> RhythmicSetupForm::getPesoCelulas()
+{
+    /* Returns the array to setup the rhythm. */
+    std::array<int,  RhythmicSetup::cellsTotal> _array;
+
+    for(unsigned int _index = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        _array[_index] = pesoCelulas[_index]->value();
+    }
+}
+
+int RhythmicSetupForm::getBarNumber()
+{
+    return ui->lineEditBarNumber_2->text().toInt();
+}
+
+int RhythmicSetupForm::getPulseNumber()
+{
+    return ui->spinBoxTempo_2->value();
+}
+
+int RhythmicSetupForm::getSlurChance()
+{
+    return ui->sliderPercentage->value();
+}
+
+PulseMeasureValidFigures RhythmicSetupForm::getPulseMeasure()
+{
+    switch(ui->comboBoxCompasso_2->currentData().toInt())
+    {
+        case 2: return MEASURE_HALF;
+        case 4: return MEASURE_QUARTER;
+        case 8: return MEASURE_EIGHTH;
+        case 16: return MEASURE_SIXTEENTH;
+        case 32: return MEASURE_THIRTYSECOND;
+    }
+}
+
+TimeSignatureMeter RhythmicSetupForm::getMeter()
+{
+    if(ui->radioButtonSimples_2->isChecked()) return BINARY_METER;
+    else if(ui->radioButtonComposto_2->isChecked()) return TERNARY_METER;
+}
+
+void RhythmicSetupForm::MAGIC()
+{
+    /* For debbuging purposes only! */
+    hold.pulseNumber = getPulseNumber();
+    hold.pulseMeasure = getPulseMeasure();
+    hold.meter = getMeter();
+    hold.barNumber = getBarNumber();
+    hold.slurChance = getSlurChance();
+    hold.cellsWeight = getPesoCelulas();
+
+
+}
+
+
+
+
+
+
 

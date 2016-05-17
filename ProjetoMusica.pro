@@ -14,7 +14,9 @@ SOURCES += main.cpp \
     miditranslationunit.cpp \
     intro.cpp \
     melodicsetupform.cpp \
-    rhythmicsetupform.cpp
+    rhythmicsetupform.cpp \
+    outputdialog.cpp \
+    datahold.cpp
 
 HEADERS += \
     note.h \
@@ -28,9 +30,12 @@ HEADERS += \
     numericconverter.hpp \
     intro.h \
     melodicsetupform.h \
-    rhythmicsetupform.h
+    rhythmicsetupform.h \
+    outputdialog.h \
+    datahold.h
 
 FORMS += \
     intro.ui \
     melodicsetupform.ui \
-    rhythmicsetupform.ui
+    rhythmicsetupform.ui \
+    outputdialog.ui

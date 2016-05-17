@@ -31,7 +31,7 @@ void MidiTranslationUnit::setPulseMeasure(PulseMeasureValidFigures _pulseMeasure
     pulseMeasure = _pulseMeasure;
 }
 
-void MidiTranslationUnit::translateToMidi(std::vector<Note> _input)
+void MidiTranslationUnit::translateToMidi( std::vector<Note> &_input)
 {
     unsigned int _index = 0;
     //First Instruction

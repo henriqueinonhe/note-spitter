@@ -8,6 +8,12 @@
 #include <limits>
 
 #include "rhythmicsetup.h"
+#include "musicenums.h"
+#include "datahold.h"
+#include "melodicsolfege.h"
+#include "miditranslationunit.h"
+
+extern DataHold hold;
 
 namespace Ui {
 class RhythmicSetupForm;
@@ -20,6 +26,12 @@ class RhythmicSetupForm : public QWidget
     public:
         explicit RhythmicSetupForm(QWidget *parent = 0);
         ~RhythmicSetupForm();
+        std::array<int, RhythmicSetup::cellsTotal> getPesoCelulas();
+        int getBarNumber();
+        int getPulseNumber();
+        PulseMeasureValidFigures getPulseMeasure();
+        int getSlurChance();
+        TimeSignatureMeter getMeter();
 
     private:
         void setSpinBoxRange();
@@ -32,6 +44,7 @@ class RhythmicSetupForm : public QWidget
 
     private slots:
         void concatenatePercentage();
+        void MAGIC();
 };
 
 #endif // RHYTHMICSETUPFORM_H

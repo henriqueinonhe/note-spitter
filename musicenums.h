@@ -48,8 +48,8 @@ enum NoteName
 
 enum TimeSignatureMeter
 {
-    UNARY_METER,
-    BINARY_METER
+    BINARY_METER,
+    TERNARY_METER
 };
 
 enum FigureName
