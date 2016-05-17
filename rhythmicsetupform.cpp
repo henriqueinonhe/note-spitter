@@ -184,7 +184,7 @@ void RhythmicSetupForm::MAGIC()
     unit.setPulseNumber(hold.pulseNumber);
     unit.setPulseMeasure(hold.pulseMeasure);
     unit.setTimeClock(960);
-    unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\Midi Study\\NEWSAMPLE.mid");
+    unit.setSampleHeaderAddress(":/MIDISample/NEWSAMPLE.mid");
     unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
     unit.translateToMidi(instance.getNoteArray());
     unit.writeToFile();

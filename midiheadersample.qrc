@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/MIDISample">
+        <file>NEWSAMPLE.mid</file>
+    </qresource>
+</RCC>

@@ -38,3 +38,6 @@ FORMS += \
     melodicsetupform.ui \
     rhythmicsetupform.ui \
     outputdialog.ui
+
+RESOURCES += \
+    midiheadersample.qrc

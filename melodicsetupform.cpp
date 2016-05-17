@@ -100,6 +100,8 @@ void MelodicSetupForm::setConnections()
             this, SLOT(checkEnablePushButtonOK()));
     connect(ui->lineEditLimiteInferior, SIGNAL(textChanged(QString)),
              this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->lineEditFirstPitch, SIGNAL(textChanged(QString)),
+            this, SLOT(checkEnablePushButtonOK()));
     connect(ui->pushButtonCancel, SIGNAL(clicked(bool)),
             this, SLOT(close()));
     connect(ui->pushButtonOK, SIGNAL(clicked(bool)),

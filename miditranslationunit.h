@@ -11,8 +11,12 @@
 #include "note.h"
 #include "numericconverter.hpp"
 
+#include <QFile>
+
 class MidiTranslationUnit
 {
+    Q_INIT_RESOURCE(midiheadersample);
+
     public:
         MidiTranslationUnit();
         void setTimeClock(const int _clock);
