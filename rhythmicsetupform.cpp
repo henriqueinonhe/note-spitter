@@ -8,6 +8,7 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     ui->setupUi(this);
 
     //Convert SpinBox Array
+    spinBoxToArray();
 
     //Setting Spin Boxes' Range
     setSpinBoxRange();
