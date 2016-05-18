@@ -174,22 +174,193 @@ void MelodicSetupForm::setConnections()
 
     connect(this, SIGNAL(propagatePercentageChange()),
             this, SLOT(updatePercentage()));
+
+    /* Info Text Update Connections. */
+
+    connect(ui->lineEditFirstPitch, SIGNAL(textChanged(QString)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->lineEditLimiteInferior, SIGNAL(textChanged(QString)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->lineEditLimiteSuperior, SIGNAL(textChanged(QString)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->checkBoxNoLoop, SIGNAL(stateChanged(int)),
+            this, SLOT(checkEnablePushButtonOK()));
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+        connect(pesoNotas[_index], SIGNAL(valueChanged(int)),
+                this, SLOT(checkEnablePushButtonOK()));
+    }
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        connect(pesoIntervalos[_index], SIGNAL(valueChanged(int)),
+                this, SLOT(checkEnablePushButtonOK()));
+    }
 }
 
 void MelodicSetupForm::checkEnablePushButtonOK()
 {
     /* Enables pushButtonOK if allowed. */
 
+    QLabel *_info = ui->labelInfo;
+
+    if(!checkLimitsDefined()) _info->setText("Defina os limites e a primeira nota!");
+    else if(!checkPitchLimits()) _info->setText("Limite inferior deve ser menor ou igual ao limite superior!");
+    else if(!checkFirstPitch()) _info->setText("A primeira nota precisa estar entre o limite inferior e superior!");
+    else if(!checkAvailableNotes()) _info->setText("Número de notas permitidas é insuficiente!");
+    else if(!checkAvailableIntervals()) _info->setText("Número de intervalos permitidos é insuficiente!");
+    else if(!checkIntervalsLimitsConformity()) _info->setText("O maior intervalo permitido deve ser menor que a diferença entre os limites inferior e superior!");
+    else if(!checkIntervalsPitchConformity()) _info->setText("Esta configuração não é possível!");
+    else
+    {
+        _info->setText("");
+        ui->pushButtonOK->setEnabled(true);
+    }
+}
+
+bool MelodicSetupForm::checkPitchLimits()
+{
+    /* Highest pitch must be greater than lowest pitch.
+     * First pitch must be within the lowest and highest pitch range. */
+
+    return getLowestPitch() <= getHighestPitch();
+}
+
+bool MelodicSetupForm::checkAvailableNotes()
+{
+    /* There must be at least one note available
+     * and if noLoop is checked there must be at
+     * least two notes available. */
+
+    int _availablePitchCounter = 0;
+
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+        if(pesoNotas[_index]->value() > 0) _availablePitchCounter++;
+    }
+
+    if(!getNoLoop()) return _availablePitchCounter > 0;
+    else return _availablePitchCounter > 1;
+}
+
+bool MelodicSetupForm::checkAvailableIntervals()
+{
+    /* There must be at least one interval available
+     * and if noLoop is checked there must be
+     * at least two intervals available.
+     * Also intervals available. */
+
+    int _availableIntervalCounter = 0;
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        if(pesoIntervalos[_index]->value() > 0) _availableIntervalCounter++;
+    }
+
+    if(!getNoLoop()) return _availableIntervalCounter > 0;
+    else return _availableIntervalCounter > 1;
+}
+
+bool MelodicSetupForm::checkFirstPitch()
+{
+    /* The first pitch must be within
+     * lowest and highest pitch boundaries. */
+
+    return getLowestPitch() <= getFirstPitch() && getFirstPitch() <= getHighestPitch();
+}
+
+bool MelodicSetupForm::checkLimitsDefined()
+{
+    /* The limits and the first pitch must be well
+     * defined and validated. */
+
     QString _s1 = ui->lineEditLimiteInferior->text(), _s2 = ui->lineEditLimiteSuperior->text();
     QString _s3 = ui->lineEditFirstPitch->text();
     int pos = 0;
 
-    ui->pushButtonOK->setEnabled(pitchValidator->validate(_s1, pos) == QValidator::Acceptable &&
-                                 pitchValidator->validate(_s2, pos) == QValidator::Acceptable &&
-                                 pitchValidator->validate(_s3, pos) == QValidator::Acceptable &&
-                                 translatePitch(_s1) <= translatePitch(_s2) &&
-                                 translatePitch(_s1) <= translatePitch(_s3) && translatePitch(_s3) <= translatePitch(_s2));
+    return pitchValidator->validate(_s1, pos) == QValidator::Acceptable &&
+           pitchValidator->validate(_s2, pos) == QValidator::Acceptable &&
+           pitchValidator->validate(_s3, pos) == QValidator::Acceptable;
+}
 
+bool MelodicSetupForm::checkIntervalsLimitsConformity()
+{
+    /* The greatest interval must be less or equal
+     * to the difference of the highest pitch to the
+     * lowest pitch. */
+
+    int _greatestInterval = 0;
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        if(pesoIntervalos[_index]->value() > 0) _greatestInterval = _index;
+    }
+
+    return _greatestInterval <= (getHighestPitch() - getLowestPitch());
+}
+
+bool MelodicSetupForm::checkIntervalsPitchConformity()
+{
+    /* This is a very complex algorithm.
+     * It checks if it's possible to build
+     * the composition without getting stuck.
+     * If the noLoop option if off this check
+     * procedure is very simple, checking the
+     * first pitch only suffices.
+     * Otherwise the checking process becomes
+     * more complicated. */
+
+    if(!getNoLoop())
+    {
+        /* If noLoop is off there must be at least one possible
+         * "move" from the first pitch. */
+        for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+        {
+            if(pesoIntervalos[_index]->value() > 0 &&
+              ( (isWithinLimits(getFirstPitch() + _index) && isAvailableNote(getFirstPitch() + _index) ) ||
+              (isWithinLimits(getFirstPitch() - _index) && isAvailableNote(getFirstPitch() - _index) ) ) )
+               return true;
+        }
+    }
+    else
+    {
+        /* If noLoop is on we must check every single pitch,
+         * moreover there must be at least two possible moves
+         * from each pitch. */
+
+        int _availableCounter = 0;
+        for(int _pitch = getLowestPitch(); _pitch <= getHighestPitch(); _pitch++)
+        {
+            for(int _index = 0; _index < MelodicSetup::intervalsTotal && _availableCounter != 2; _index++)
+            {
+                if(pesoIntervalos[_index]->value() > 0 &&
+                   isWithinLimits(_pitch + _index) &&
+                   isAvailableNote(_pitch + _index)) _availableCounter++;
+                if(pesoIntervalos[_index]->value() > 0 &&
+                   isWithinLimits(_pitch - _index) &&
+                   isAvailableNote(_pitch - _index)) _availableCounter++;
+            }
+            if(_availableCounter < 2) return false;
+            else _availableCounter = 0;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool MelodicSetupForm::isWithinLimits(const int _pitch)
+{
+    /* Checks if the given pitch index is within limits
+     * (lowest and highest pitches). */
+
+    return getLowestPitch() <= _pitch && _pitch <= getHighestPitch();
+}
+
+bool MelodicSetupForm::isAvailableNote(const int _pitch)
+{
+    /* Checks if the given pitch is an available note. */
+
+    return pesoNotas[_pitch % 12]->value() > 0;
 }
 
 int MelodicSetupForm::translatePitch(const QString &_str)
@@ -265,6 +436,11 @@ int MelodicSetupForm::getFirstPitch()
     return translatePitch(ui->lineEditFirstPitch->text());
 }
 
+bool MelodicSetupForm::getNoLoop()
+{
+    return ui->checkBoxNoLoop->isChecked();
+}
+
 void MelodicSetupForm::showRhythmicSetupForm()
 {
     /* Sending to Data Hold. */
@@ -273,7 +449,7 @@ void MelodicSetupForm::showRhythmicSetupForm()
     hold.firstPitch = getFirstPitch();
     hold.notesWeight = getPesoNotas();
     hold.intervalsWeight = getPesoIntervalos();
-    hold.noLoop = true; //FIX THIS!
+    hold.noLoop = getNoLoop();
 
     rhythmicSetupWindow.show();
 }

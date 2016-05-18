@@ -28,6 +28,7 @@ class MelodicSetupForm : public QWidget
         int getHighestPitch();
         int getLowestPitch();
         int getFirstPitch();
+        bool getNoLoop();
 
     private:
         void spinBoxToArray();
@@ -36,6 +37,15 @@ class MelodicSetupForm : public QWidget
         void setInitialPercentage();
         void setConnections();
         int translatePitch(const QString &_str);
+        bool checkPitchLimits();
+        bool checkAvailableNotes();
+        bool checkAvailableIntervals();
+        bool checkFirstPitch();
+        bool checkLimitsDefined();
+        bool checkIntervalsLimitsConformity();
+        bool checkIntervalsPitchConformity();
+        bool isWithinLimits(const int _pitch);
+        bool isAvailableNote(const int _pitch);
         Ui::MelodicSetupForm *ui;
         QValidator *pitchValidator;
         QSpinBox *pesoNotas[MelodicSetup::notesTotal];
