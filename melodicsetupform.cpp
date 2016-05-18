@@ -23,6 +23,12 @@ MelodicSetupForm::MelodicSetupForm(QWidget *parent) :
     //Set SpinBox Range
     setSpinBoxRange();
 
+    //Assign Labels to Arrays
+    textLabelToArray();
+
+    //Settting Initial Percentage
+    setInitialPercentage();
+
     //Connects
     setConnections();
 
@@ -92,6 +98,49 @@ void MelodicSetupForm::setSpinBoxRange()
     }
 }
 
+void MelodicSetupForm::textLabelToArray()
+{
+    porcentagemNotas[0] = ui->labelC;
+    porcentagemNotas[1] = ui->labelDb;
+    porcentagemNotas[2] = ui->labelD;
+    porcentagemNotas[3] = ui->labelEb;
+    porcentagemNotas[4] = ui->labelE;
+    porcentagemNotas[5] = ui->labelF;
+    porcentagemNotas[6] = ui->labelGb;
+    porcentagemNotas[7] = ui->labelG;
+    porcentagemNotas[8] = ui->labelAb;
+    porcentagemNotas[9] = ui->labelA;
+    porcentagemNotas[10] = ui->labelBb;
+    porcentagemNotas[11] = ui->labelB;
+
+
+    porcentagemIntervalos[0] = ui->labelUnissono;
+    porcentagemIntervalos[1] = ui->label2m;
+    porcentagemIntervalos[2] = ui->label2M;
+    porcentagemIntervalos[3] = ui->label3m;
+    porcentagemIntervalos[4] = ui->label3M;
+    porcentagemIntervalos[5] = ui->label4J;
+    porcentagemIntervalos[6] = ui->label4aum;
+    porcentagemIntervalos[7] = ui->label5J;
+    porcentagemIntervalos[8] = ui->label6m;
+    porcentagemIntervalos[9] = ui->label6M;
+    porcentagemIntervalos[10] = ui->label7m;
+    porcentagemIntervalos[11] = ui->label7M;
+    porcentagemIntervalos[12] = ui->label8J;
+    porcentagemIntervalos[13] = ui->label9m;
+    porcentagemIntervalos[14] = ui->label9M;
+    porcentagemIntervalos[15] = ui->label10m;
+    porcentagemIntervalos[16] = ui->label10M;
+    porcentagemIntervalos[17] = ui->label11J;
+    porcentagemIntervalos[18] = ui->label11aum;
+    porcentagemIntervalos[19] = ui->label12J;
+    porcentagemIntervalos[20] = ui->label13m;
+    porcentagemIntervalos[21] = ui->label13M;
+    porcentagemIntervalos[22] = ui->label14m;
+    porcentagemIntervalos[23] = ui->label14M;
+    porcentagemIntervalos[24] = ui->label15J;
+}
+
 void MelodicSetupForm::setConnections()
 {
     /* Setup the connections. */
@@ -99,7 +148,7 @@ void MelodicSetupForm::setConnections()
     connect(ui->lineEditLimiteSuperior, SIGNAL(textChanged(QString)),
             this, SLOT(checkEnablePushButtonOK()));
     connect(ui->lineEditLimiteInferior, SIGNAL(textChanged(QString)),
-             this, SLOT(checkEnablePushButtonOK()));
+            this, SLOT(checkEnablePushButtonOK()));
     connect(ui->lineEditFirstPitch, SIGNAL(textChanged(QString)),
             this, SLOT(checkEnablePushButtonOK()));
     connect(ui->pushButtonCancel, SIGNAL(clicked(bool)),
@@ -108,6 +157,23 @@ void MelodicSetupForm::setConnections()
             this, SLOT(close()));
     connect(ui->pushButtonOK, SIGNAL(clicked(bool)),
             this, SLOT(showRhythmicSetupForm()));
+
+    /* Percentage update connections. */
+
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+        connect(pesoNotas[_index], SIGNAL(valueChanged(int)),
+                this, SIGNAL(propagatePercentageChange()));
+    }
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        connect(pesoIntervalos[_index], SIGNAL(valueChanged(int)),
+                this, SIGNAL(propagatePercentageChange()));
+    }
+
+    connect(this, SIGNAL(propagatePercentageChange()),
+            this, SLOT(updatePercentage()));
 }
 
 void MelodicSetupForm::checkEnablePushButtonOK()
@@ -126,7 +192,7 @@ void MelodicSetupForm::checkEnablePushButtonOK()
 
 }
 
-int MelodicSetupForm::translatePitch(QString _str)
+int MelodicSetupForm::translatePitch(const QString &_str)
 {
     /* Translates the pitch (absolute) from the line
      * edits. */
@@ -194,16 +260,95 @@ int MelodicSetupForm::getLowestPitch()
     return translatePitch(ui->lineEditLimiteInferior->text());
 }
 
+int MelodicSetupForm::getFirstPitch()
+{
+    return translatePitch(ui->lineEditFirstPitch->text());
+}
+
 void MelodicSetupForm::showRhythmicSetupForm()
 {
     /* Sending to Data Hold. */
     hold.highestPitch = getHighestPitch();
     hold.lowestPitch = getLowestPitch();
-    hold.firstPitch = 65; //FIX THIS!
+    hold.firstPitch = getFirstPitch();
     hold.notesWeight = getPesoNotas();
     hold.intervalsWeight = getPesoIntervalos();
     hold.noLoop = true; //FIX THIS!
 
     rhythmicSetupWindow.show();
 }
+
+void MelodicSetupForm::updatePercentage()
+{
+    /* This updates the percentage regarding
+     * notesWeight and intervalsWeight, this is
+     * simple weighted mean. */
+
+    int _totalNotesWeight = 0, _totalIntervalsWeight = 0;
+
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+        _totalNotesWeight += pesoNotas[_index]->value();
+    }
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        _totalIntervalsWeight += pesoIntervalos[_index]->value();
+    }
+
+    /* Now the we have the total weight we just have
+     * to divide each individual's weight by the total
+     * so we have the chance of each one appearing.
+     * We also append the percentage symbol.
+     * We have to take care of arithmethic exceptions (division by 0)
+     * in case all spinBoxes are set to 0. */
+
+    if(_totalNotesWeight != 0)
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+       porcentagemNotas[_index]->setNum(100*pesoNotas[_index]->value() / _totalNotesWeight);
+       porcentagemNotas[_index]->setText(porcentagemNotas[_index]->text().append("%"));
+    }
+    else
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+       porcentagemNotas[_index]->setNum(0);
+       porcentagemNotas[_index]->setText(porcentagemNotas[_index]->text().append("%"));
+    }
+
+    if(_totalIntervalsWeight != 0)
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        porcentagemIntervalos[_index]->setNum(100*pesoIntervalos[_index]->value() / _totalIntervalsWeight);
+        porcentagemIntervalos[_index]->setText(porcentagemIntervalos[_index]->text().append("%"));
+    }
+    else
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+       porcentagemIntervalos[_index]->setNum(0);
+       porcentagemIntervalos[_index]->setText(porcentagemIntervalos[_index]->text().append("%"));
+    }
+
+}
+
+void MelodicSetupForm::setInitialPercentage()
+{
+    /* Sets to 0 the initial percentage of
+     * notesWeight and intervalsWeight. */
+
+    for(int _index = 0; _index < MelodicSetup::notesTotal; _index++)
+    {
+        porcentagemNotas[_index]->setText("0%");
+    }
+
+    for(int _index = 0; _index < MelodicSetup::intervalsTotal; _index++)
+    {
+        porcentagemIntervalos[_index]->setText("0%");
+    }
+}
+
+
+
+
+
 

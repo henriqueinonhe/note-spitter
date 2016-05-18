@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QValidator>
 #include <QSpinBox>
+#include <QLabel>
 
 #include "melodicsetup.h"
 #include "rhythmicsetupform.h"
@@ -26,21 +27,30 @@ class MelodicSetupForm : public QWidget
         std::array<int, MelodicSetup::intervalsTotal> getPesoIntervalos();
         int getHighestPitch();
         int getLowestPitch();
+        int getFirstPitch();
 
     private:
         void spinBoxToArray();
         void setSpinBoxRange();
+        void textLabelToArray();
+        void setInitialPercentage();
         void setConnections();
-        int translatePitch(QString _str);
+        int translatePitch(const QString &_str);
         Ui::MelodicSetupForm *ui;
         QValidator *pitchValidator;
         QSpinBox *pesoNotas[MelodicSetup::notesTotal];
         QSpinBox *pesoIntervalos[MelodicSetup::intervalsTotal];
+        QLabel *porcentagemNotas[MelodicSetup::notesTotal];
+        QLabel *porcentagemIntervalos[MelodicSetup::intervalsTotal];
         RhythmicSetupForm rhythmicSetupWindow;
 
     private slots:
         void checkEnablePushButtonOK();
         void showRhythmicSetupForm();
+        void updatePercentage();
+
+    signals:
+        void propagatePercentageChange();
 
 };
 
