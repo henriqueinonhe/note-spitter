@@ -12,10 +12,11 @@
 #include "numericconverter.hpp"
 
 #include <QFile>
+#include <QTextStream>
 
 class MidiTranslationUnit
 {
-    Q_INIT_RESOURCE(midiheadersample);
+
 
     public:
         MidiTranslationUnit();

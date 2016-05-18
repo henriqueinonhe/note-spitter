@@ -2,6 +2,7 @@
 #define DATAHOLD_H
 
 #include<array>
+#include <string>
 
 #include "melodicsetup.h"
 #include "rhythmicsetup.h"
@@ -24,6 +25,7 @@ class DataHold
     int barNumber;
     int slurChance;
     std::array<int, RhythmicSetup::cellsTotal> cellsWeight;
+    std::string midiHeaderAddress;
 
 };
 

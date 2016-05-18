@@ -3,7 +3,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Project5
+TARGET = ProjetoMusica
 TEMPLATE = app
 
 SOURCES += main.cpp \
@@ -40,4 +40,4 @@ FORMS += \
     outputdialog.ui
 
 RESOURCES += \
-    midiheadersample.qrc
+    midiheader.qrc

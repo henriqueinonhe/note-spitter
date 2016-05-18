@@ -13,10 +13,13 @@
 #include "intro.h"
 #include "datahold.h"
 
+#include <QDebug>
+
 DataHold hold;
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     Intro introWindow;
     introWindow.show();
