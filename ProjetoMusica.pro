@@ -13,9 +13,9 @@ SOURCES += main.cpp \
     melodicsolfege.cpp \
     miditranslationunit.cpp \
     intro.cpp \
-    melodicsetupform.cpp \
     rhythmicsetupform.cpp \
-    outputdialog.cpp
+    outputdialog.cpp \
+    melodicsetupform.cpp
 
 HEADERS += \
     note.h \
@@ -28,16 +28,16 @@ HEADERS += \
     musicenums.h \
     numericconverter.hpp \
     intro.h \
-    melodicsetupform.h \
     rhythmicsetupform.h \
     outputdialog.h \
-    datahold.h
+    datahold.h \
+    melodicsetupform.h
 
 FORMS += \
     intro.ui \
-    melodicsetupform.ui \
     rhythmicsetupform.ui \
-    outputdialog.ui
+    outputdialog.ui \
+    melodicsetupform.ui
 
 RESOURCES += \
     midiheader.qrc

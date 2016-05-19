@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QValidator>
 #include <QSpinBox>
+#include <QLabel>
 
 #include <limits>
 
@@ -38,13 +39,19 @@ class RhythmicSetupForm : public QWidget
         void setValidators();
         void setConnections();
         void spinBoxToArray();
+        void textLabelToArray();
         Ui::RhythmicSetupForm *ui;
         QValidator *barNumberValidator;
         QSpinBox *pesoCelulas[RhythmicSetup::cellsTotal];
+        QLabel *porcentagemCelulas[RhythmicSetup::cellsTotal];
 
     private slots:
-        void concatenatePercentage();
+        void concatenatePercentage(); //I can realy make some improvements to this system
+        void updatePercentage();
         void MAGIC();
+
+    signals:
+        void propagatePercentageUpdate();
 };
 
 #endif // RHYTHMICSETUPFORM_H

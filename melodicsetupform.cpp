@@ -83,7 +83,6 @@ void MelodicSetupForm::spinBoxToArray()
     pesoIntervalos[24] = ui->spinBox15J;
 }
 
-
 void MelodicSetupForm::setSpinBoxRange()
 {
     /* Sets the range of the Spin Boxes. */

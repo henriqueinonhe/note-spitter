@@ -16,6 +16,9 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     //Setting Validators
     setValidators();
 
+    //Turn Labels into Array
+    textLabelToArray();
+
     //Making Connections
     setConnections();
 
@@ -56,6 +59,46 @@ void RhythmicSetupForm::setConnections()
             this, SLOT(close()));
     connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
             this, SLOT(MAGIC()));
+
+    /* Connecting percentage update. */
+
+    for(int _index = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        connect(pesoCelulas[_index], SIGNAL(valueChanged(int)),
+                this, SIGNAL(propagatePercentageUpdate()));
+    }
+
+    connect(this, SIGNAL(propagatePercentageUpdate()),
+            this, SLOT(updatePercentage()));
+}
+
+void RhythmicSetupForm::updatePercentage()
+{
+    /* Updates the percentage regarding cellsWeight. */
+
+    int _totalCellsWeight = 0;
+
+    for(int _index = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        _totalCellsWeight += pesoCelulas[_index]->value();
+    }
+
+    /* Dealing with arithmethic exception (division by zero), when
+     * every cellWeight is set to 0, therefore _totalCellsWeight = 0. */
+
+    if(_totalCellsWeight != 0)
+    for(int _index  = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        porcentagemCelulas[_index]->setNum(100 * pesoCelulas[_index]->value() /_totalCellsWeight);
+        porcentagemCelulas[_index]->setText(porcentagemCelulas[_index]->text().append("%"));
+    }
+    else
+    for(int _index  = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+       porcentagemCelulas[_index]->setNum(0);
+       porcentagemCelulas[_index]->setText(porcentagemCelulas[_index]->text().append("%"));
+    }
+
 }
 
 void RhythmicSetupForm::concatenatePercentage()
@@ -108,6 +151,103 @@ void RhythmicSetupForm::spinBoxToArray()
     pesoCelulas[36] = ui->cellWeight37;
     pesoCelulas[37] = ui->cellWeight38;
     pesoCelulas[38] = ui->cellWeight39;
+    pesoCelulas[39] = ui->cellWeight40;
+    pesoCelulas[40] = ui->cellWeight41;
+    pesoCelulas[41] = ui->cellWeight42;
+    pesoCelulas[42] = ui->cellWeight43;
+    pesoCelulas[43] = ui->cellWeight44;
+    pesoCelulas[44] = ui->cellWeight45;
+    pesoCelulas[45] = ui->cellWeight46;
+    pesoCelulas[46] = ui->cellWeight47;
+    pesoCelulas[47] = ui->cellWeight48;
+    pesoCelulas[48] = ui->cellWeight49;
+    pesoCelulas[49] = ui->cellWeight50;
+    pesoCelulas[50] = ui->cellWeight51;
+    pesoCelulas[51] = ui->cellWeight52;
+    pesoCelulas[52] = ui->cellWeight53;
+    pesoCelulas[53] = ui->cellWeight54;
+    pesoCelulas[54] = ui->cellWeight55;
+    pesoCelulas[55] = ui->cellWeight56;
+    pesoCelulas[56] = ui->cellWeight57;
+    pesoCelulas[57] = ui->cellWeight58;
+    pesoCelulas[58] = ui->cellWeight59;
+    pesoCelulas[59] = ui->cellWeight60;
+    pesoCelulas[60] = ui->cellWeight61;
+    pesoCelulas[61] = ui->cellWeight62;
+
+}
+
+void RhythmicSetupForm::textLabelToArray()
+{
+    /* Turns the labels into an array for
+     * further manipulation. */
+
+    porcentagemCelulas[0] = ui->labelCell0;
+    porcentagemCelulas[1] = ui->labelCell1;
+    porcentagemCelulas[2] = ui->labelCell2;
+    porcentagemCelulas[3] = ui->labelCell3;
+    porcentagemCelulas[4] = ui->labelCell4;
+    porcentagemCelulas[5] = ui->labelCell5;
+    porcentagemCelulas[6] = ui->labelCell6;
+    porcentagemCelulas[7] = ui->labelCell7;
+    porcentagemCelulas[8] = ui->labelCell8;
+    porcentagemCelulas[9] = ui->labelCell9;
+    porcentagemCelulas[10] = ui->labelCell10;
+    porcentagemCelulas[11] = ui->labelCell11;
+    porcentagemCelulas[12] = ui->labelCell12;
+    porcentagemCelulas[13] = ui->labelCell13;
+    porcentagemCelulas[14] = ui->labelCell14;
+    porcentagemCelulas[15] = ui->labelCell15;
+    porcentagemCelulas[16] = ui->labelCell16;
+    porcentagemCelulas[17] = ui->labelCell17;
+    porcentagemCelulas[18] = ui->labelCell18;
+    porcentagemCelulas[19] = ui->labelCell19;
+    porcentagemCelulas[20] = ui->labelCell20;
+    porcentagemCelulas[21] = ui->labelCell21;
+    porcentagemCelulas[22] = ui->labelCell22;
+    porcentagemCelulas[23] = ui->labelCell23;
+    porcentagemCelulas[24] = ui->labelCell24;
+    porcentagemCelulas[25] = ui->labelCell25;
+    porcentagemCelulas[26] = ui->labelCell26;
+    porcentagemCelulas[27] = ui->labelCell27;
+    porcentagemCelulas[28] = ui->labelCell28;
+    porcentagemCelulas[29] = ui->labelCell29;
+    porcentagemCelulas[30] = ui->labelCell30;
+    porcentagemCelulas[31] = ui->labelCell31;
+    porcentagemCelulas[32] = ui->labelCell32;
+    porcentagemCelulas[33] = ui->labelCell33;
+    porcentagemCelulas[34] = ui->labelCell34;
+    porcentagemCelulas[35] = ui->labelCell35;
+    porcentagemCelulas[36] = ui->labelCell36;
+    porcentagemCelulas[37] = ui->labelCell37;
+    porcentagemCelulas[38] = ui->labelCell38;
+    porcentagemCelulas[39] = ui->labelCell39;
+    porcentagemCelulas[40] = ui->labelCell40;
+    porcentagemCelulas[41] = ui->labelCell41;
+    porcentagemCelulas[42] = ui->labelCell42;
+    porcentagemCelulas[43] = ui->labelCell43;
+    porcentagemCelulas[44] = ui->labelCell44;
+    porcentagemCelulas[45] = ui->labelCell45;
+    porcentagemCelulas[46] = ui->labelCell46;
+    porcentagemCelulas[47] = ui->labelCell47;
+    porcentagemCelulas[48] = ui->labelCell48;
+    porcentagemCelulas[49] = ui->labelCell49;
+    porcentagemCelulas[50] = ui->labelCell50;
+    porcentagemCelulas[51] = ui->labelCell51;
+    porcentagemCelulas[52] = ui->labelCell52;
+    porcentagemCelulas[53] = ui->labelCell53;
+    porcentagemCelulas[54] = ui->labelCell54;
+    porcentagemCelulas[55] = ui->labelCell55;
+    porcentagemCelulas[56] = ui->labelCell56;
+    porcentagemCelulas[57] = ui->labelCell57;
+    porcentagemCelulas[58] = ui->labelCell58;
+    porcentagemCelulas[59] = ui->labelCell59;
+    porcentagemCelulas[60] = ui->labelCell60;
+    porcentagemCelulas[61] = ui->labelCell61;
+    porcentagemCelulas[62] = ui->labelCell62;
+
+
+
 }
 
 std::array<int, RhythmicSetup::cellsTotal> RhythmicSetupForm::getPesoCelulas()
