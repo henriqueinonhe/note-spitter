@@ -73,7 +73,7 @@ void MelodicSolfege::createCell(int _case)
     switch(_case)
     {
         case 0:
-        newNote(QUARTER);
+        newNote(QUARTER, true);
         break;
 
         case 1:
@@ -82,7 +82,7 @@ void MelodicSolfege::createCell(int _case)
 
         case 2:
         newNote(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 3:
@@ -92,55 +92,55 @@ void MelodicSolfege::createCell(int _case)
 
         case 4:
         newRest(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 5:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 6:
         newNote(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 7:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 8:
         newNote(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 9:
         newNote(DOTTED_EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 10:
         newNote(SIXTEENTH);
-        newNote(DOTTED_EIGHTH);
+        newNote(DOTTED_EIGHTH, true);
         break;
 
         case 11:
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 12:
         newRest(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 13:
@@ -151,28 +151,28 @@ void MelodicSolfege::createCell(int _case)
 
         case 14:
         newRest(DOTTED_EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 15:
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 16:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newRest(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 17:
         newNote(SIXTEENTH);
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 18:
@@ -193,13 +193,13 @@ void MelodicSolfege::createCell(int _case)
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
         newRest(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 21:
         newNote(SIXTEENTH);
         newRest(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 22:
@@ -210,13 +210,13 @@ void MelodicSolfege::createCell(int _case)
         case 23:
         newRest(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 24:
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 25:
@@ -232,23 +232,23 @@ void MelodicSolfege::createCell(int _case)
         break;
 
         case 27:
-        newNote(DOTTED_QUARTER);
+        newNote(DOTTED_QUARTER, true);
         break;
 
         case 28:
         newNote(QUARTER);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 29:
         newNote(EIGHTH);
-        newNote(QUARTER);
+        newNote(QUARTER, true);
         break;
 
         case 30:
         newNote(EIGHTH);
         newNote(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 31:
@@ -262,12 +262,12 @@ void MelodicSolfege::createCell(int _case)
 
         case 33:
         newRest(QUARTER);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 34:
         newRest(EIGHTH);
-        newNote(QUARTER);
+        newNote(QUARTER, true);
         break;
 
         case 35:
@@ -278,13 +278,13 @@ void MelodicSolfege::createCell(int _case)
         case 36:
         newRest(EIGHTH);
         newNote(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 37:
         newNote(EIGHTH);
         newRest(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 38:
@@ -297,21 +297,21 @@ void MelodicSolfege::createCell(int _case)
         newNote(EIGHTH);
         newNote(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 40:
         newNote(EIGHTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 41:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 42:
@@ -319,7 +319,7 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 43:
@@ -327,7 +327,7 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 44:
@@ -335,28 +335,28 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         newNote(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 45:
         newNote(SIXTEENTH);
         newNote(EIGHTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 46:
         newNote(SIXTEENTH);
         newNote(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 47:
         newNote(EIGHTH);
         newNote(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 48:
@@ -364,7 +364,7 @@ void MelodicSolfege::createCell(int _case)
         newNote(EIGHTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 49:
@@ -372,35 +372,35 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 50:
         newNote(DOTTED_EIGHTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 51:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(DOTTED_EIGHTH);
+        newNote(DOTTED_EIGHTH, true);
         break;
 
         case 52:
         newNote(SIXTEENTH);
         newNote(DOTTED_EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 53:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(DOTTED_EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 54:
@@ -409,69 +409,72 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 55:
         newNote(QUARTER);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 56:
         newNote(SIXTEENTH);
         newNote(QUARTER);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 57:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(QUARTER);
+        newNote(QUARTER, true);
         break;
 
         case 58:
         newNote(DOTTED_EIGHTH);
         newNote(EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 59:
         newNote(EIGHTH);
         newNote(DOTTED_EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 60:
         newNote(EIGHTH);
         newNote(DOTTED_EIGHTH);
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         break;
 
         case 61:
         newNote(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(DOTTED_EIGHTH);
+        newNote(DOTTED_EIGHTH, true);
         break;
 
         case 62:
         newNote(SIXTEENTH);
         newNote(DOTTED_EIGHTH);
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         break;
 
         case 63:
         newNote(SIXTEENTH);
         newNote(EIGHTH);
-        newNote(DOTTED_EIGHTH);
+        newNote(DOTTED_EIGHTH, true);
         break;
 
 
     }
 }
 
-void MelodicSolfege::newNote(double _duration)
+void MelodicSolfege::newNote(double _duration, bool) //Gotta fix the style of this later
 {
+    /* This one is for the notes which ARE allowed
+     * to bear a slur. */
+
     static Note _newNoteModel;
 
     //If it is note the first note
@@ -488,6 +491,26 @@ void MelodicSolfege::newNote(double _duration)
         noteArray.back().incrementDuration(convertTimeMeasure(_duration));
     }
     //If it is the first note of the series
+    else
+    {
+        noteArray.push_back(_newNoteModel);
+        noteArray.back().setDuration(convertTimeMeasure(_duration));
+        firstNote = false;
+    }
+}
+
+void MelodicSolfege::newNote(double _duration)
+{
+    /* This one is for notes which are not allowed
+     * to bear a slur. */
+
+    static Note _newNoteModel;
+
+    if(!firstNote)
+    {
+        noteArray.push_back(_newNoteModel);
+        noteArray.back().setDuration(convertTimeMeasure(_duration));
+    }
     else
     {
         noteArray.push_back(_newNoteModel);
