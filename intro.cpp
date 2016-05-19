@@ -32,5 +32,5 @@ Intro::~Intro()
 
 void Intro::showMelodicSetupForm()
 {
-    //melodicSetupWindow.show();
+    melodicSetupWindow.show();
 }

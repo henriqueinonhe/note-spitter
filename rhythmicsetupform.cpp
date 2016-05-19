@@ -158,7 +158,7 @@ void RhythmicSetupForm::spinBoxToArray()
     pesoCelulas[43] = ui->cellWeight44;
     pesoCelulas[44] = ui->cellWeight45;
     pesoCelulas[45] = ui->cellWeight46;
-    pesoCelulas[46] = ui->cellWeight47;
+  /*  pesoCelulas[46] = ui->cellWeight47;
     pesoCelulas[47] = ui->cellWeight48;
     pesoCelulas[48] = ui->cellWeight49;
     pesoCelulas[49] = ui->cellWeight50;
@@ -173,7 +173,7 @@ void RhythmicSetupForm::spinBoxToArray()
     pesoCelulas[58] = ui->cellWeight59;
     pesoCelulas[59] = ui->cellWeight60;
     pesoCelulas[60] = ui->cellWeight61;
-    pesoCelulas[61] = ui->cellWeight62;
+    pesoCelulas[61] = ui->cellWeight62;*/
 
 }
 

@@ -52,7 +52,7 @@ class MelodicSetupForm : public QWidget
         QSpinBox *pesoIntervalos[MelodicSetup::intervalsTotal];
         QLabel *porcentagemNotas[MelodicSetup::notesTotal];
         QLabel *porcentagemIntervalos[MelodicSetup::intervalsTotal];
-        //RhythmicSetupForm rhythmicSetupWindow;
+        RhythmicSetupForm rhythmicSetupWindow;
 
     private slots:
         void checkEnablePushButtonOK();
