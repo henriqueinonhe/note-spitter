@@ -40,14 +40,21 @@ class RhythmicSetupForm : public QWidget
         void setConnections();
         void spinBoxToArray();
         void textLabelToArray();
+        bool checkTempo();
+        bool checkMeter();
+        bool checkBarNumber();
+        bool checkCellWeight();
         Ui::RhythmicSetupForm *ui;
         QValidator *barNumberValidator;
-        QSpinBox *pesoCelulas[RhythmicSetup::cellsTotal];
-        QLabel *porcentagemCelulas[RhythmicSetup::cellsTotal];
+        std::array<QSpinBox *, RhythmicSetup::cellsTotal> pesoCelulas;
+        std::array<QLabel *, RhythmicSetup::cellsTotal> porcentagemCelulas;
 
     private slots:
-        void concatenatePercentage(); //I can realy make some improvements to this system
-        void updatePercentage();
+        void concatenatePercentage();
+        void updatePercentage(); //I can realy make some improvements to this system
+        void checkEnablePushButtonOK();
+        void binaryMeterChosen();
+        void ternaryMeterChosen();
         void MAGIC();
 
     signals:

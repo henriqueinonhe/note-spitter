@@ -450,7 +450,7 @@ void MelodicSetupForm::showRhythmicSetupForm()
     hold.intervalsWeight = getPesoIntervalos();
     hold.noLoop = getNoLoop();
 
-    //rhythmicSetupWindow.show();
+    rhythmicSetupWindow.show();
 }
 
 void MelodicSetupForm::updatePercentage()

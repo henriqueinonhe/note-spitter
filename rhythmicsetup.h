@@ -14,6 +14,8 @@ class RhythmicSetup
 {
     public:
         static const int cellsTotal = 63;
+        static const int binaryMeterCells = 27;
+        static const int ternaryMeterCells = 36;
 
     protected:
         bool setSlurChance(const int _value);

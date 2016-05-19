@@ -20,7 +20,7 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     textLabelToArray();
 
     //Making Connections
-    //setConnections();
+    setConnections();
 
     /* Testing and debugging purposes */
 }
@@ -70,6 +70,97 @@ void RhythmicSetupForm::setConnections()
 
     connect(this, SIGNAL(propagatePercentageUpdate()),
             this, SLOT(updatePercentage()));
+    connect(ui->radioButtonSimples_2, SIGNAL(clicked(bool)),
+            this, SLOT(binaryMeterChosen());
+    connect(ui->radioButtonComposto_2, SIGNAL(clicked(bool)),
+            this, SLOT(ternaryMeterChosen());
+
+    /* Info text update connections. */
+    connect(ui->spinBoxTempo_2, SIGNAL(valueChanged(int)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->radioButtonSimples_2, SIGNAL(clicked(bool)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->radioButtonComposto_2, SIGNAL(clicked(bool)),
+            this, SLOT(checkEnablePushButtonOK()));
+    connect(ui->lineEditBarNumber_2, SIGNAL(textChanged(QString)),
+            this, SLOT(checkEnablePushButtonOK()));
+
+    for(int _index = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        connect(pesoCelulas[_index], SIGNAL(valueChanged(int)),
+                this, SLOT(checkEnablePushButtonOK()));
+    }
+}
+
+void RhythmicSetupForm::binaryMeterChosen()
+{
+    /* If binary meter is chosen, then all ternary cells
+     * must have their weight adjusted to 0. */
+
+    for(int _index  = RhythmicSetup::binaryMeterCells - 1; _index < RhythmicSetup::ternaryMeterCells; _index++)
+    {
+        pesoCelulas[_index]->setValue(0);
+    }
+}
+
+void RhythmicSetupForm::ternaryMeterChosen()
+{
+    /* If ternary meter is chosen, then all binary cells
+     * must have their weight adjusted to 0. */
+
+    for(int _index  = 0; _index < RhythmicSetup::binaryMeterCells; _index++)
+    {
+        pesoCelulas[_index]->setValue(0);
+    }
+}
+
+void RhythmicSetupForm::checkEnablePushButtonOK()
+{
+    /* If it  is allowed it enables the OK Push Button, else
+     * it outputs and info message to labelInfo. */
+
+    if(!checkTempo()) ui->labelInfo->setText("A unidade de tempo deve ser maior que 0!");
+    else if(!checkMeter()) ui->labelInfo->setText("Escolha uma métrica!");
+    else if(!checkBarNumber()) ui->labelInfo->setText("O número de compassos deve ser maior que 0!");
+    else if(!checkCellWeight()) ui->labelInfo->setText("Deve haver ao menos uma célula rítmica permitida!");
+    else
+    {
+        ui->labelInfo->setText("");
+        ui->pushButtonOK_2->setEnabled(true);
+    }
+}
+
+bool RhythmicSetupForm::checkTempo()
+{
+    /* The tempo line edit must be greater than 0. */
+
+    return ui->spinBoxTempo_2->value() > 0;
+}
+
+bool RhythmicSetupForm::checkMeter()
+{
+    /* Either radioButtonSimples or radioButtonComposto must be on. */
+
+    return ui->radioButtonSimples_2->isChecked() || ui->radioButtonComposto_2->isChecked();
+}
+
+bool RhythmicSetupForm::checkBarNumber()
+{
+    /* Bar Number line edit must hold a value greater than 0. */
+
+    return ui->lineEditBarNumber_2->text().toInt() > 0;
+}
+
+bool RhythmicSetupForm::checkCellWeight()
+{
+    /* At least one cell weight must be greater than 0. */
+
+    for(int _index = 0; _index < RhythmicSetup::cellsTotal; _index++)
+    {
+        if(pesoCelulas[_index]->value() > 0) return true;
+    }
+
+    return false;
 }
 
 void RhythmicSetupForm::updatePercentage()

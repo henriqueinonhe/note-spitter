@@ -6,6 +6,8 @@
 #include <QSpinBox>
 #include <QLabel>
 
+#include <Array>
+
 #include "melodicsetup.h"
 #include "rhythmicsetupform.h"
 #include "datahold.h"
@@ -48,10 +50,10 @@ class MelodicSetupForm : public QWidget
         bool isAvailableNote(const int _pitch);
         Ui::MelodicSetupForm *ui;
         QValidator *pitchValidator;
-        QSpinBox *pesoNotas[MelodicSetup::notesTotal];
-        QSpinBox *pesoIntervalos[MelodicSetup::intervalsTotal];
-        QLabel *porcentagemNotas[MelodicSetup::notesTotal];
-        QLabel *porcentagemIntervalos[MelodicSetup::intervalsTotal];
+        std::array<QSpinBox *, MelodicSetup::notesTotal> pesoNotas;
+        std::array<QSpinBox *, MelodicSetup::intervalsTotal> pesoIntervalos;
+        std::array<QLabel *, MelodicSetup::notesTotal> porcentagemNotas;
+        std::array<QLabel *, MelodicSetup::intervalsTotal> porcentagemIntervalos;
         RhythmicSetupForm rhythmicSetupWindow;
 
     private slots:
