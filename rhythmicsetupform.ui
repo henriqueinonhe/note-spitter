@@ -1547,9 +1547,6 @@
      <item row="0" column="7" rowspan="6">
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QSpinBox" name="cellWeight51_2"/>
-       </item>
-       <item>
         <widget class="QSpinBox" name="cellWeight52"/>
        </item>
        <item>
@@ -1563,6 +1560,9 @@
        </item>
        <item>
         <widget class="QSpinBox" name="cellWeight56"/>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="cellWeight57"/>
        </item>
       </layout>
      </item>
@@ -1679,9 +1679,6 @@
      <item row="0" column="10" rowspan="6">
       <layout class="QVBoxLayout" name="verticalLayout_46">
        <item>
-        <widget class="QSpinBox" name="cellWeight57"/>
-       </item>
-       <item>
         <widget class="QSpinBox" name="cellWeight58"/>
        </item>
        <item>
@@ -1695,6 +1692,9 @@
        </item>
        <item>
         <widget class="QSpinBox" name="cellWeight62"/>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="cellWeight63"/>
        </item>
       </layout>
      </item>

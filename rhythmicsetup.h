@@ -13,7 +13,7 @@
 class RhythmicSetup
 {
     public:
-        static const int cellsTotal = 39;
+        static const int cellsTotal = 63;
 
     protected:
         bool setSlurChance(const int _value);
