@@ -67,7 +67,7 @@ void MelodicSolfege::setupMelody()
     }
 }
 
-void MelodicSolfege::createCell(int _case)
+void MelodicSolfege::createCell(int _case) /* FIX THIS SERIOUSLY! */
 {
     //Cells cases
     switch(_case)
@@ -81,98 +81,98 @@ void MelodicSolfege::createCell(int _case)
         break;
 
         case 2:
-        newNote(EIGHTH);
         newNote(EIGHTH, true);
+        newNote(EIGHTH);
         break;
 
         case 3:
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         newRest(EIGHTH);
         break;
 
         case 4:
         newRest(EIGHTH);
-        newNote(EIGHTH, true);
+        newNote(EIGHTH);
         break;
 
         case 5:
-        newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
         newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
         break;
 
         case 6:
-        newNote(EIGHTH);
+        newNote(EIGHTH, true);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 7:
+        newNote(SIXTEENTH, true);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH);
-        newNote(EIGHTH, true);
+        newNote(EIGHTH);
         break;
 
         case 8:
-        newNote(SIXTEENTH);
-        newNote(EIGHTH);
         newNote(SIXTEENTH, true);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
         break;
 
         case 9:
-        newNote(DOTTED_EIGHTH);
-        newNote(SIXTEENTH, true);
+        newNote(DOTTED_EIGHTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 10:
-        newNote(SIXTEENTH);
-        newNote(DOTTED_EIGHTH, true);
+        newNote(SIXTEENTH, true);
+        newNote(DOTTED_EIGHTH);
         break;
 
         case 11:
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 12:
         newRest(EIGHTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 13:
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         newNote(SIXTEENTH);
         newRest(EIGHTH);
         break;
 
         case 14:
         newRest(DOTTED_EIGHTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 15:
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 16:
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         newNote(SIXTEENTH);
         newRest(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 17:
-        newNote(SIXTEENTH);
+        newNote(SIXTEENTH, true);
         newRest(SIXTEENTH);
         newNote(SIXTEENTH);
-        newNote(SIXTEENTH, true);
+        newNote(SIXTEENTH);
         break;
 
         case 18:

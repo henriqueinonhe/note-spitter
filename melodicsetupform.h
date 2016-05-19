@@ -56,9 +56,11 @@ class MelodicSetupForm : public QWidget
         std::array<QLabel *, MelodicSetup::intervalsTotal> porcentagemIntervalos;
         RhythmicSetupForm rhythmicSetupWindow;
 
+    public slots:
+        void showRhythmicSetupForm();
+
     private slots:
         void checkEnablePushButtonOK();
-        void showRhythmicSetupForm();
         void updatePercentage();
 
     signals:

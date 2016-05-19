@@ -22,6 +22,7 @@ class Intro : public QWidget
 
     private slots:
         void showMelodicSetupForm();
+        void setupRhythmicSolfege();
 };
 
 #endif // INTRO_H
