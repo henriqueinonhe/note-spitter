@@ -114,6 +114,11 @@ inline std::string NumCon::intToStr(long long _int, int _base, LetterCase _case)
     /*First it checks if the base is supported.*/
     if(2 <= _base && _base <= 36)
     {
+        /* If the integer is zero it is straightforward
+         * moreover zer is the only integer for which the following
+         * algorithm fails. */
+        if(_int == 0) _str.push_back('0');
+
         for(int _power = 0; _int != 0; _power++)
         {
             _str.insert(_str.begin(), intToChar(_int % _base, _base, _case));

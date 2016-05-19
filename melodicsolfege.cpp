@@ -72,35 +72,29 @@ void MelodicSolfege::createCell(int _case)
     //Cells cases
     switch(_case)
     {
-        //Q
         case 0:
         newNote(QUARTER);
         break;
 
-        //q
         case 1:
         newRest(QUARTER);
         break;
 
-        //E,E
         case 2:
         newNote(EIGHTH);
         newNote(EIGHTH);
         break;
 
-        //E,e
         case 3:
         newNote(EIGHTH);
         newRest(EIGHTH);
         break;
 
-        //e,E
         case 4:
         newRest(EIGHTH);
         newNote(EIGHTH);
         break;
 
-        //S,S,S,S
         case 5:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
@@ -108,38 +102,370 @@ void MelodicSolfege::createCell(int _case)
         newNote(SIXTEENTH);
         break;
 
-        //E,S,S
         case 6:
         newNote(EIGHTH);
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         break;
 
-        //S,S,E
         case 7:
         newNote(SIXTEENTH);
         newNote(SIXTEENTH);
         newNote(EIGHTH);
         break;
 
-        //S,E,S
         case 8:
         newNote(SIXTEENTH);
         newNote(EIGHTH);
         newNote(SIXTEENTH);
         break;
 
-        //E+,S
         case 9:
         newNote(DOTTED_EIGHTH);
         newNote(SIXTEENTH);
         break;
 
-        //S,E+
         case 10:
         newNote(SIXTEENTH);
         newNote(DOTTED_EIGHTH);
         break;
+
+        case 11:
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 12:
+        newRest(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 13:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newRest(EIGHTH);
+        break;
+
+        case 14:
+        newRest(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 15:
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 16:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 17:
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 18:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        break;
+
+        case 19:
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        break;
+
+        case 20:
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 21:
+        newNote(SIXTEENTH);
+        newRest(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 22:
+        newNote(SIXTEENTH);
+        newRest(DOTTED_EIGHTH);
+        break;
+
+        case 23:
+        newRest(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 24:
+        newRest(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        break;
+
+        case 25:
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newRest(SIXTEENTH);
+        break;
+
+        case 26:
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newRest(SIXTEENTH);
+        break;
+
+        case 27:
+        newNote(DOTTED_QUARTER);
+        break;
+
+        case 28:
+        newNote(QUARTER);
+        newNote(EIGHTH);
+        break;
+
+        case 29:
+        newNote(EIGHTH);
+        newNote(QUARTER);
+        break;
+
+        case 30:
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        break;
+
+        case 31:
+        newRest(DOTTED_QUARTER);
+        break;
+
+        case 32:
+        newNote(QUARTER);
+        newRest(EIGHTH);
+        break;
+
+        case 33:
+        newRest(QUARTER);
+        newNote(EIGHTH);
+        break;
+
+        case 34:
+        newRest(EIGHTH);
+        newNote(QUARTER);
+        break;
+
+        case 35:
+        newNote(EIGHTH);
+        newRest(QUARTER);
+        break;
+
+        case 36:
+        newRest(EIGHTH);
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        break;
+
+        case 37:
+        newNote(EIGHTH);
+        newRest(EIGHTH);
+        newNote(EIGHTH);
+        break;
+
+        case 38:
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        newRest(EIGHTH);
+        break;
+
+        case 39:
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 40:
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        break;
+
+        case 41:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        break;
+
+        case 42:
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 43:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        break;
+
+        case 44:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 45:
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 46:
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        break;
+
+        case 47:
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 48:
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 49:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 50:
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 51:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        break;
+
+        case 52:
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 53:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 54:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 55:
+        newNote(QUARTER);
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 56:
+        newNote(SIXTEENTH);
+        newNote(QUARTER);
+        newNote(SIXTEENTH);
+        break;
+
+        case 57:
+        newNote(SIXTEENTH);
+        newNote(SIXTEENTH);
+        newNote(QUARTER);
+        break;
+
+        case 58:
+        newNote(DOTTED_EIGHTH);
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 59:
+        newNote(EIGHTH);
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 60:
+        newNote(EIGHTH);
+        newNote(DOTTED_EIGHTH);
+        newNote(SIXTEENTH);
+        break;
+
+        case 61:
+        newNote(EIGHTH);
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        break;
+
+        case 62:
+        newNote(SIXTEENTH);
+        newNote(DOTTED_EIGHTH);
+        newNote(EIGHTH);
+        break;
+
+        case 63:
+        newNote(SIXTEENTH);
+        newNote(EIGHTH);
+        newNote(DOTTED_EIGHTH);
+        break;
+
 
     }
 }

@@ -97,7 +97,7 @@ void RhythmicSetupForm::binaryMeterChosen()
     /* If binary meter is chosen, then all ternary cells
      * must have their weight adjusted to 0. */
 
-    for(int _index  = RhythmicSetup::binaryMeterCells - 1; _index < RhythmicSetup::ternaryMeterCells; _index++)
+    for(int _index  = RhythmicSetup::binaryMeterCells - 1; _index < RhythmicSetup::cellsTotal; _index++)
     {
         pesoCelulas[_index]->setValue(0);
     }
