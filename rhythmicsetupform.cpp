@@ -71,9 +71,9 @@ void RhythmicSetupForm::setConnections()
     connect(this, SIGNAL(propagatePercentageUpdate()),
             this, SLOT(updatePercentage()));
     connect(ui->radioButtonSimples_2, SIGNAL(clicked(bool)),
-            this, SLOT(binaryMeterChosen());
+            this, SLOT(binaryMeterChosen()));
     connect(ui->radioButtonComposto_2, SIGNAL(clicked(bool)),
-            this, SLOT(ternaryMeterChosen());
+            this, SLOT(ternaryMeterChosen()));
 
     /* Info text update connections. */
     connect(ui->spinBoxTempo_2, SIGNAL(valueChanged(int)),
