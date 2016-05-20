@@ -19,13 +19,10 @@ DataHold hold;
 
 int main(int argc, char *argv[])
 {
-    std::vector<int> vec(5,2);
 
-    std::cout << NumCon::convertFromVector(vec, 10, 4, -1);
+    QApplication a(argc, argv);
+    Intro introWindow;
+    introWindow.show();
 
-    //QApplication a(argc, argv);
-    //Intro introWindow;
-    //introWindow.show();
-
-   // return a.exec();
+    return a.exec();
 }

@@ -140,7 +140,7 @@ void MidiTranslationUnit::readTimeClock()
     /* Reads the time clock and unformats it. */
     const static unsigned int timeClockPos = 0x0c;
 
-    timeClock = NumCon::convertFromVector(inputData, 16, 0x0c, 0x0c + 1);
+    timeClock = NumCon::convertFromVector(inputData, 16, 0x0c, 2);
 
 }
 
