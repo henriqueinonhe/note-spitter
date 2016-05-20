@@ -36,7 +36,6 @@ class MelodicSolfege : public MelodicSetup, public RhythmicSetup
         void setupMelody();
         void createCell(int _case);
         void newNote(double _duration);
-        void newNote(double _duration, bool);
         void newRest(double _duration);
         bool hasSlur();
         double convertTimeMeasure(double _duration);

@@ -19,6 +19,7 @@ class Intro : public QWidget
     private:
         Ui::Intro *ui;
         MelodicSetupForm melodicSetupWindow;
+        RhythmicSetupForm rhythmicSetupWindow;
 
     private slots:
         void showMelodicSetupForm();

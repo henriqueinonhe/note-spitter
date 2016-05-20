@@ -18,14 +18,9 @@ Intro::Intro(QWidget *parent) :
 
     //pushButtonSR
     connect(ui->pushButtonSR, SIGNAL(clicked(bool)),
-            this, SLOT
-    connect(ui->pushButtonSR, SIGNAL(clicked(bool)),
-            melodicSetupWindow.rhythmicSetupWindow, SLOT(showRhythmicSetupForm));
+            this, SLOT(setupRhythmicSolfege()));
     connect(ui->pushButtonSR, SIGNAL(clicked(bool)),
             this, SLOT(close()));
-
-
-
 
 }
 
@@ -41,12 +36,20 @@ void Intro::showMelodicSetupForm()
 
 void Intro::setupRhythmicSolfege()
 {
+    std::array<int, MelodicSetup::notesTotal> notesWeight;
+    notesWeight.fill(0);
+    notesWeight[A] = 1; //Dummy note used in rhythmic solfege
 
+    std::array<int, MelodicSetup::intervalsTotal> intervalsWeight;
+    intervalsWeight.fill(0);
+    intervalsWeight[UNISON] = 1;
 
     hold.highestPitch = 69;
     hold.lowestPitch = 69;
     hold.firstPitch = 69;
-    hold.notesWeight = getPesoNotas();
-    hold.intervalsWeight = getPesoIntervalos();
-    hold.noLoop = getNoLoop();
+    hold.notesWeight = notesWeight;
+    hold.intervalsWeight = intervalsWeight;
+    hold.noLoop = false;
+
+    rhythmicSetupWindow.show();
 }
