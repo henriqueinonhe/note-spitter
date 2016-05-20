@@ -27,7 +27,7 @@ class MidiTranslationUnit
         void setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure);
         void setPulseNumber(const int _pulseNumber);
         void translateToMidi(const std::vector<Note> &_input);
-        bool translateToNote();
+        bool translateToNote(std::vector<Note> &_output);
         void writeToFile();
 
     private:
@@ -39,10 +39,15 @@ class MidiTranslationUnit
         void writeData();
         void writeTimeSignature();
         void writeTimeClock();
+        void readToInput();
+        void setAttributesFromInput();
+        void readTimeSigature();
+        void readTimeClock();
         std::fstream sampleHeader;
         std::fstream outputFile;
         std::fstream inputFile;
         std::vector<unsigned char> outputData;
+        std::vector<unsigned char> inputData;
         int pulseNumber;
         PulseMeasureValidFigures pulseMeasure;
         int timeClock;

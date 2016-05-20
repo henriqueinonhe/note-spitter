@@ -33,8 +33,8 @@ namespace NumCon
     unsigned long long maxValue(int _base, int _digitNum);
     std::vector<int> convertToVector(long long _int, int _base, int _digitNum);
     std::vector<char> convertToVector(long long _int, int _base, int _digitNum, char);
-    long long convertFromVector(std::vector<int> _vector, int _base);
-    long long convertFromVector(std::vector<char> _vector, int _base);
+    long long convertFromVector(std::vector<int> _vector, int _base, int _beg = 0, int _end = -1);
+    long long convertFromVector(std::vector<char> _vector, int _base, int _beg = 0, int _end  = -1);
 }
 //Definitions
 
@@ -411,10 +411,12 @@ inline std::vector<char> NumCon::convertToVector(long long _int, int _base, int 
     }
 }
 
-inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
+inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base, int _beg, int _end)
 {
     /* Converts the numbers in given vector and base
-     * to an integer (long long).
+     * to an integer (long long) from position _beg
+     * to _end in the vector.
+     * If end = -1 it goes until the end of the vector.
      * Any base is supported.
      * If the conversion makes the long long overflow it returns
      * LLONG_MAX */
@@ -423,7 +425,19 @@ inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
     long long _previousInt = 0;
     int _power = 0;
 
-    for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
+    /* Checking for _beg (cannot be greater than vector size)
+     * and _end (cannot be greater than vector size also). */
+    if(_beg > _vector.size() || _end > _vector.size())
+    {
+        std::cout << "Beginning or End position is out of bounds!\n";
+        return LLONG_MAX;
+    }
+
+    if(_end == - 1) _end = _vector.size();
+    auto _adjustedRBegin = _vector.rbegin() + (_vector.size() - _end);
+    auto _adjustedREnd = _vector.rend() - _beg;
+
+    for(auto _iterator = _adjustedRBegin; _iterator != _adjustedREnd; _iterator++, _power++)
     {
         //Checking if the base is respected
         if(*_iterator >= _base)
@@ -448,19 +462,34 @@ inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base)
     return _int;
 }
 
-inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base)
+inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base, int _beg, int _end)
 {
     /* Converts the numbers in given vector and base
-     * to an integer (long long).
+     * to an integer (long long) from position _beg
+     * to _end in the vector.
+     * If end = -1 it goes until the end of the vector.
      * Any base is supported.
      * If the conversion makes the long long overflow it returns
      * LLONG_MAX */
+
 
     long long _int = 0;
     long long _previousInt = 0;
     int _power = 0;
 
-    for(auto _iterator = _vector.rbegin(); _iterator != _vector.rend(); _iterator++, _power++)
+    /* Checking for _beg (cannot be greater than vector size)
+     * and _end (cannot be greater than vector size also). */
+    if(_beg > _vector.size() || _end > _vector.size())
+    {
+        std::cout << "Beginning or End position is out of bounds!\n";
+        return LLONG_MAX;
+    }
+
+    if(_end == - 1) _end = _vector.size();
+    auto _adjustedRBegin = _vector.rbegin() + (_vector.size() - _end);
+    auto _adjustedREnd = _vector.rend() - _beg;
+
+    for(auto _iterator = _adjustedRBegin; _iterator != _adjustedREnd; _iterator++, _power++)
     {
         //Checking if the base is respected
         if(*_iterator >= _base)

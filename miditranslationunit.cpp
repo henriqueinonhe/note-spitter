@@ -95,9 +95,83 @@ void MidiTranslationUnit::translateToMidi(const std::vector<Note> &_input)
     outputData.push_back(0x00);
 }
 
-bool MidiTranslationUnit::translateToNote()
+bool MidiTranslationUnit::translateToNote(std::vector<Note> &_output)
 {
+    /* This routine translates the content fetched from
+     * the input File in the MIDI protocol to
+     * the _output. */
 
+}
+
+void MidiTranslationUnit::readToInput()
+{
+    /* This routine writes the data from the inputFile to inputData for
+     * further processing. */
+
+    int _fileLength;
+
+    /* Gets the length of the file, then sets the iterator to the beggining
+     * of the file. */
+    inputFile.seekg(0, std::ios_base::end);
+    _fileLength = inputFile.tellg();
+    inputFile.seekg(0, std::ios_base::beg);
+
+    /* Allocates enough space in the vector. */
+    inputData.reserve(_fileLength);
+
+    /* Read the data to the vector. */
+    inputFile.read((char *) inputData.data(), _fileLength);
+}
+
+void MidiTranslationUnit::setAttributesFromInput()
+{
+    /* Sets the attributes from Midi Translation Unit
+     * from the inputFile. */
+
+    const static unsigned int headerEndPos = 0x68;
+    const static unsigned int byteNumberPos = 0x43;
+
+
+
+}
+
+void MidiTranslationUnit::readTimeClock()
+{
+    /* Reads the time clock and unformats it. */
+    const static unsigned int timeClockPos = 0x0c;
+
+    unsigned char *_buffer = new unsigned char[2];
+
+}
+
+void MidiTranslationUnit::readTimeSigature()
+{
+    /* Reads the time signature and "unformats" it. */
+    const static unsigned int timeSignaturePos = 0x1a;
+
+    pulseNumber = inputData[timeSignaturePos];
+    switch(inputData[timeSignaturePos + 1])
+    {
+        case 1:
+        pulseMeasure = MEASURE_HALF;
+        break;
+
+        case 2:
+        pulseMeasure = MEASURE_QUARTER;
+        break;
+
+        case 3:
+        pulseMeasure = MEASURE_EIGHTH;
+        break;
+
+        case 4:
+        pulseMeasure = MEASURE_SIXTEENTH;
+        break;
+
+        case 5:
+        pulseMeasure = MEASURE_THIRTYSECOND;
+        break;
+    }
 }
 
 std::vector<unsigned char> MidiTranslationUnit::dataToVlq(const unsigned long _value)
