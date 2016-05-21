@@ -16,26 +16,6 @@ SOURCES += main.cpp \
     rhythmicsetupform.cpp \
     outputdialog.cpp \
     melodicsetupform.cpp \
-    Forms Sources/intro.cpp \
-    Forms Sources/melodicsetupform.cpp \
-    Forms Sources/outputdialog.cpp \
-    Forms Sources/rhythmicsetupform.cpp \
-    Forms Sources/intro.cpp \
-    Forms Sources/melodicsetupform.cpp \
-    Forms Sources/outputdialog.cpp \
-    Forms Sources/rhythmicsetupform.cpp \
-    Forms Sources/intro.cpp \
-    Forms Sources/melodicsetupform.cpp \
-    Forms Sources/outputdialog.cpp \
-    Forms Sources/rhythmicsetupform.cpp \
-    Forms Sources/intro.cpp \
-    Forms Sources/melodicsetupform.cpp \
-    Forms Sources/outputdialog.cpp \
-    Forms Sources/rhythmicsetupform.cpp \
-    Forms Sources/intro.cpp \
-    Forms Sources/melodicsetupform.cpp \
-    Forms Sources/outputdialog.cpp \
-    Forms Sources/rhythmicsetupform.cpp \
     rhythmicsetupform.cpp \
     outputdialog.cpp \
     melodicsetupform.cpp \
@@ -56,18 +36,6 @@ HEADERS += \
     outputdialog.h \
     datahold.h \
     melodicsetupform.h \
-    Forms Headers/intro.h \
-    Forms Headers/melodicsetupform.h \
-    Forms Headers/outputdialog.h \
-    Forms Headers/rhythmicsetupform.h \
-    Forms Headers/intro.h \
-    Forms Headers/melodicsetupform.h \
-    Forms Headers/outputdialog.h \
-    Forms Headers/rhythmicsetupform.h \
-    Forms Headers/intro.h \
-    Forms Headers/melodicsetupform.h \
-    Forms Headers/outputdialog.h \
-    Forms Headers/rhythmicsetupform.h \
     pcg_uint128.hpp \
     rhythmicsetupform.h \
     outputdialog.h \
