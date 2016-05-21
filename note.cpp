@@ -15,6 +15,11 @@ double Note::getDuration() const
     return duration;
 }
 
+char Note::getVelocity() const
+{
+    return velocity;
+}
+
 void Note::setPitch(const unsigned char _pitch)
 {
     pitch = _pitch;
@@ -28,6 +33,11 @@ void Note::setDuration(const double _duration)
 void Note::incrementDuration(const double _duration)
 {
     duration += _duration;
+}
+
+void Note::setVelocity(const char _velocity)
+{
+    velocity = _velocity;
 }
 
 bool Note::isRest() const

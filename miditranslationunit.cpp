@@ -101,6 +101,74 @@ bool MidiTranslationUnit::translateToNote(std::vector<Note> &_output)
      * the input File in the MIDI protocol to
      * the _output. */
 
+    static const unsigned int headerEndPos = 0x68;
+    static const Note _sampleNote;
+
+    /* Treatment for the first note. */
+
+    unsigned int _posIncrement;
+
+    if(inputData[headerEndPos] == 0x00) //Which means first note is a pitched note and the next byte is 0x9x
+    {
+        _output.push_back(_sampleNote);
+
+        _output.back().setPitch(inputData[headerEndPos + 2]);
+        _output.back().setVelocity(inputData[headerEndPos + 3]);
+        _output.back().setDuration(unformatTimeValuePitched(inputData, headerEndPos + 4));
+
+        _posIncrement = 4 + byteNumberVlq(inputData, headerEndPos + 4);
+    }
+    else //Which means the first note is a rest note, so we only have to deal with the delta time
+    {
+        _output.push_back(_sampleNote);
+
+        _output.back().setPitch(-1); //It is a rest, thus it is unpitched
+        _output.back().setVelocity(0); //No velocity either
+        _output.back().setDuration(unformatTimeValueRest(inputData, headerEndPos));
+
+        _posIncrement = byteNumberVlq(inputData, headerEndPos);
+    }
+
+    /* Now we take care of the rest. */
+
+    for(unsigned int _index = headerEndPos + _posIncrement; _index < inputData.size();)
+    {
+        if(inputData[_index] == 0x90) // I can generalize this later!
+        {
+            _output.push_back(_sampleNote);
+
+            _output.back().setPitch(inputData[_index + 1]);
+            _output.back().setVelocity(inputData[_index + 2]);
+            _output.back().setDuration(unformatTimeValuePitched(inputData, _index + 3));
+
+            _index += 3 + byteNumberVlq(inputData, _index + 3);
+        }
+        else if(inputData[_index] == 0x80) //Note off message, check for rest
+        {
+            /* inputData[_index + 1] = Pitch to be turned off.
+             * inputData[_index + 2] = Release Time. */
+
+            if(inputData[_index + 3] != 0x00) //Which means it is a rest
+            {
+                _output.push_back(_sampleNote);
+
+                _output.back().setPitch(-1); //Unpitched;
+                _output.back().setVelocity(0); //No velocity
+                _output.back().setDuration(unformatTimeValueRest(inputData, _index + 3));
+
+                _index += 3 + byteNumberVlq(inputData, _index + 3);
+            }
+            else
+            {
+                _index += 4;
+            }
+        }
+        else //Any other messsage is just useless
+        {
+            _index++;
+        }
+    }
+
 }
 
 void MidiTranslationUnit::readToInput()
@@ -123,16 +191,23 @@ void MidiTranslationUnit::readToInput()
     inputFile.read((char *) inputData.data(), _fileLength);
 }
 
+double MidiTranslationUnit::unformatTimeValuePitched(const std::vector<unsigned char> &_vector, const int _beg)
+{
+    return static_cast<double>(vlqToInt(_vector, _beg)) / timeClock;
+}
+
+double MidiTranslationUnit::unformatTimeValueRest(const std::vector<unsigned char> &_vector, const int _beg)
+{
+    return -(static_cast<double>(vlqToInt(_vector, _beg)) / timeClock);
+}
+
 void MidiTranslationUnit::setAttributesFromInput()
 {
     /* Sets the attributes from Midi Translation Unit
      * from the inputFile. */
 
-    const static unsigned int headerEndPos = 0x68;
-    const static unsigned int byteNumberPos = 0x43;
-
-
-
+    readTimeClock();
+    readTimeSignature();
 }
 
 void MidiTranslationUnit::readTimeClock()
@@ -140,11 +215,10 @@ void MidiTranslationUnit::readTimeClock()
     /* Reads the time clock and unformats it. */
     const static unsigned int timeClockPos = 0x0c;
 
-    timeClock = NumCon::convertFromVector(inputData, 16, 0x0c, 0x0c + 1);
-
+    timeClock = NumCon::convertFromVector(inputData, 256 /* Size of a byte */, timeClockPos, 2);
 }
 
-void MidiTranslationUnit::readTimeSigature()
+void MidiTranslationUnit::readTimeSignature()
 {
     /* Reads the time signature and "unformats" it. */
     const static unsigned int timeSignaturePos = 0x1a;
@@ -204,7 +278,7 @@ unsigned long MidiTranslationUnit::maxValueVlq(const int _byteNumber)
         _max = 0x7f;
         for(int j = 1; j < _byteNumber; j++)
         {
-            _max += 0x7f*std::pow(2, (_byteNumber - 1)*(8 - 1));
+            _max += 0x7f*std::pow(0x80, _byteNumber - j - 1);
         }
     }
 
@@ -227,6 +301,44 @@ int MidiTranslationUnit::byteNumberVlq(const unsigned long _value)
     while(_value > maxValueVlq(_byteNumber)) _byteNumber++;
 
     return _byteNumber;
+}
+
+int MidiTranslationUnit::byteNumberVlq(const std::vector<unsigned char> &_vector, const int _beg)
+{
+    /* Returns the number of the given Vlq contained in the given vector
+     * starting at pos _beg. */
+
+    int _digitNum = 1;
+
+    for(int _index = _beg; ;_index++)
+    {
+        if(_vector[_index] > 0x7f) _digitNum++;
+        else break;
+    }
+
+    return _digitNum;
+}
+
+int MidiTranslationUnit::vlqToInt(const std::vector<unsigned char> &_vector, const int _beg)
+{
+    /* Converts a Variable Length Quantity stored in a vector,
+     * to an integer, starting at position _beg of the vector. */
+
+    /* First of all we need to know how many digits the vlq
+     * is composed of. */
+
+    int _digitNum = byteNumberVlq(_vector, _beg);
+    unsigned int _int = 0;
+
+
+    /* Then we convert the value. */
+    for(int _i = _0; _i < _digitNum - 1; _i++)
+    {
+        _int += (_vector[_beg + _i] - 0x80) * std::pow(0x80, _digitNum - _i - 1);
+    }
+    _int += _vector[_digitNum - 1];
+
+    return _int;
 }
 
 std::vector<unsigned char> MidiTranslationUnit::formatTimeValue(float _value)

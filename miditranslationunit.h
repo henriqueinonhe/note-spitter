@@ -26,6 +26,7 @@ class MidiTranslationUnit
         bool setInputFileAddress(const std::string &_address);
         void setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure);
         void setPulseNumber(const int _pulseNumber);
+        void setAttributesFromInput();
         void translateToMidi(const std::vector<Note> &_input);
         bool translateToNote(std::vector<Note> &_output);
         void writeToFile();
@@ -33,15 +34,18 @@ class MidiTranslationUnit
     private:
         unsigned long maxValueVlq(const int _byteNumber);
         int byteNumberVlq(const unsigned long _value);
+        int byteNumberVlq(const std::vector<unsigned char> &_vector, const int _beg);
         std::vector<unsigned char> dataToVlq(unsigned long _value);
+        int vlqToInt(const std::vector<unsigned char> &_vector, const int _beg);
         std::vector<unsigned char> formatTimeValue(float _value);
+        double unformatTimeValuePitched(const std::vector<unsigned char> &_vector, const int _beg);
+        double unformatTimeValueRest(const std::vector<unsigned char> &_vector, const int _beg);
         void writeToHeader();
         void writeData();
         void writeTimeSignature();
         void writeTimeClock();
         void readToInput();
-        void setAttributesFromInput();
-        void readTimeSigature();
+        void readTimeSignature();
         void readTimeClock();
         std::fstream sampleHeader;
         std::fstream outputFile;
