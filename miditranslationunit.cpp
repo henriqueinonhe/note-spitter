@@ -185,7 +185,7 @@ void MidiTranslationUnit::readToInput()
     inputFile.seekg(0, std::ios_base::beg);
 
     /* Allocates enough space in the vector. */
-    inputData.reserve(_fileLength);
+    inputData.resize(_fileLength);
 
     /* Read the data to the vector. */
     inputFile.read((char *) inputData.data(), _fileLength);
@@ -206,6 +206,7 @@ void MidiTranslationUnit::setAttributesFromInput()
     /* Sets the attributes from Midi Translation Unit
      * from the inputFile. */
 
+    readToInput();
     readTimeClock();
     readTimeSignature();
 }
@@ -275,14 +276,10 @@ unsigned long MidiTranslationUnit::maxValueVlq(const int _byteNumber)
     if(_byteNumber == 0) return 0;
     else
     {
-        _max = 0x7f;
-        for(int j = 1; j < _byteNumber; j++)
-        {
-            _max += 0x7f*std::pow(0x80, _byteNumber - j - 1);
-        }
+        std::vector<unsigned char> _vector(_byteNumber - 1, 0xff);
+        _vector.push_back(0x7f);
+        return vlqToInt(_vector, 0);
     }
-
-    return _max;
 }
 
 int MidiTranslationUnit::byteNumberVlq(const unsigned long _value)
@@ -332,11 +329,11 @@ int MidiTranslationUnit::vlqToInt(const std::vector<unsigned char> &_vector, con
 
 
     /* Then we convert the value. */
-    for(int _i = _0; _i < _digitNum - 1; _i++)
+    for(int _i = 0; _i < _digitNum - 1; _i++)
     {
         _int += (_vector[_beg + _i] - 0x80) * std::pow(0x80, _digitNum - _i - 1);
     }
-    _int += _vector[_digitNum - 1];
+    _int += _vector[_beg + _digitNum - 1];
 
     return _int;
 }

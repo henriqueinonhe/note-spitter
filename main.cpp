@@ -19,10 +19,23 @@ DataHold hold;
 
 int main(int argc, char *argv[])
 {
+    /* Debugging section. */
 
-    QApplication a(argc, argv);
-    Intro introWindow;
-    introWindow.show();
+    MidiTranslationUnit unit;
 
-    return a.exec();
+    std::vector<Note> test;
+
+    unit.setInputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
+    unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutputCopy.mid");
+    unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\NEWSAMPLE.mid");
+    unit.setAttributesFromInput();
+    unit.translateToNote(test);
+    unit.translateToMidi(test);
+    unit.writeToFile();
+
+    //QApplication a(argc, argv);
+    //Intro introWindow;
+    //introWindow.show();
+
+    //return a.exec();
 }
