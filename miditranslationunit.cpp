@@ -168,7 +168,6 @@ bool MidiTranslationUnit::translateToNote(std::vector<Note> &_output)
             _index++;
         }
     }
-
 }
 
 void MidiTranslationUnit::readToInput()

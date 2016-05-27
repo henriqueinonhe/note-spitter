@@ -33,9 +33,9 @@ namespace NumCon
     unsigned long long maxValue(int _base, int _digitNum);
     std::vector<int> convertToVector(long long _int, int _base, int _digitNum);
     std::vector<char> convertToVector(long long _int, int _base, int _digitNum, char);
-    long long convertFromVector(std::vector<int> _vector, int _base, int _beg = 0, int _digitNum = -1);
-    long long convertFromVector(std::vector<char> _vector, int _base, int _beg = 0, int _digitNum  = -1);
-    long long convertFromVector(std::vector<unsigned char> _vector, int _base, int _beg = 0, int _digitNum  = -1);
+    long long convertFromVector(std::vector<int> _vector, int _base, unsigned int _beg = 0, int _digitNum = -1);
+    long long convertFromVector(std::vector<char> _vector, int _base, unsigned  int _beg = 0, int _digitNum  = -1);
+    long long convertFromVector(std::vector<unsigned char> _vector, int _base, unsigned int _beg = 0, int _digitNum  = -1);
 }
 //Definitions
 
@@ -412,7 +412,7 @@ inline std::vector<char> NumCon::convertToVector(long long _int, int _base, int 
     }
 }
 
-inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base, int _beg, int _digitNum)
+inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base, unsigned int _beg, int _digitNum)
 {
     /* Converts the numbers in given vector and base
      * to an integer (long long) using _digitNum digits
@@ -468,7 +468,7 @@ inline long long NumCon::convertFromVector(std::vector<int> _vector, int _base, 
     return _int;
 }
 
-inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base, int _beg, int _digitNum)
+inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base, unsigned int _beg, int _digitNum)
 {
     /* Converts the numbers in given vector and base
      * to an integer (long long) using _digitNum digits
@@ -524,7 +524,7 @@ inline long long NumCon::convertFromVector(std::vector<char> _vector, int _base,
     return _int;
 }
 
-inline long long NumCon::convertFromVector(std::vector<unsigned char> _vector, int _base, int _beg, int _digitNum)
+inline long long NumCon::convertFromVector(std::vector<unsigned char> _vector, int _base, unsigned int _beg, int _digitNum)
 {
     /* Converts the numbers in given vector and base
      * to an integer (long long) using _digitNum digits

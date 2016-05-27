@@ -30,6 +30,7 @@ class MidiTranslationUnit
         void translateToMidi(const std::vector<Note> &_input);
         bool translateToNote(std::vector<Note> &_output);
         void writeToFile();
+        void readToInput();
 
     private:
         unsigned long maxValueVlq(const int _byteNumber);
@@ -44,7 +45,6 @@ class MidiTranslationUnit
         void writeData();
         void writeTimeSignature();
         void writeTimeClock();
-        void readToInput();
         void readTimeSignature();
         void readTimeClock();
         std::fstream sampleHeader;

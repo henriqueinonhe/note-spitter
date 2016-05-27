@@ -16,10 +16,8 @@ SOURCES += main.cpp \
     rhythmicsetupform.cpp \
     outputdialog.cpp \
     melodicsetupform.cpp \
-    rhythmicsetupform.cpp \
-    outputdialog.cpp \
-    melodicsetupform.cpp \
-    intro.cpp
+    symmetriccliches.cpp \
+    symmetricclichesform.cpp
 
 HEADERS += \
     note.h \
@@ -37,16 +35,15 @@ HEADERS += \
     datahold.h \
     melodicsetupform.h \
     pcg_uint128.hpp \
-    rhythmicsetupform.h \
-    outputdialog.h \
-    melodicsetupform.h \
-    intro.h
+    symmetriccliches.h \
+    symmetricclichesform.h
 
 FORMS += \
     intro.ui \
     rhythmicsetupform.ui \
     outputdialog.ui \
-    melodicsetupform.ui
+    melodicsetupform.ui \
+    symmetricclichesform.ui
 
 RESOURCES += \
     midiheader.qrc \

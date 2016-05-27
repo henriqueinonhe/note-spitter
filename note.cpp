@@ -30,6 +30,11 @@ void Note::setDuration(const double _duration)
     duration = _duration;
 }
 
+void Note::incrementPitch(const unsigned char _pitch)
+{
+    pitch += _pitch;
+}
+
 void Note::incrementDuration(const double _duration)
 {
     duration += _duration;

@@ -4,11 +4,7 @@
 #include <array>
 #include <cmath>
 
-#include "musicenums.h"
-#include "miditranslationunit.h"
-#include "melodicsolfege.h"
-#include "pcg_random.hpp"
-#include "numericconverter.hpp"
+#include "symmetriccliches.h"
 
 #include "intro.h"
 #include "datahold.h"
@@ -19,23 +15,23 @@ DataHold hold;
 
 int main(int argc, char *argv[])
 {
-    /* Debugging section. */
-
     MidiTranslationUnit unit;
 
-    std::vector<Note> test;
+    unit.setInputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\Symmetric.mid");
+    unit.readToInput();
 
-    unit.setInputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
-    unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutputCopy.mid");
-    unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\NEWSAMPLE.mid");
-    unit.setAttributesFromInput();
-    unit.translateToNote(test);
-    unit.translateToMidi(test);
-    unit.writeToFile();
+    SymmetricCliches instance;
 
-    //QApplication a(argc, argv);
-    //Intro introWindow;
-    //introWindow.show();
+    std::vector<Note> stream;
 
-    //return a.exec();
+    unit.translateToNote(stream);
+    instance.setNoteInput(stream);
+
+    instance.generateNoteSequences();
+
+    QApplication a(argc, argv);
+    Intro introWindow;
+    introWindow.show();
+
+    return a.exec();
 }

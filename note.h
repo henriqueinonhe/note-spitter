@@ -9,6 +9,7 @@ class Note
         double getDuration() const;
         char getVelocity() const;
         void setPitch(const unsigned char _pitch);
+        void incrementPitch(const unsigned char _pitch);
         void setDuration(const double _duration);
         void incrementDuration(const double _duration);
         void setVelocity(const char _velocity);
