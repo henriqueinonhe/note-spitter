@@ -148,7 +148,7 @@ bool MidiTranslationUnit::translateToNote(std::vector<Note> &_output)
             /* inputData[_index + 1] = Pitch to be turned off.
              * inputData[_index + 2] = Release Time. */
 
-            if(inputData[_index + 3] != 0x00) //Which means it is a rest
+            if(inputData[_index + 3] != 0x00 && inputData[_index + 3] != 0x01) //Which means it is a rest and not the last one
             {
                 _output.push_back(_sampleNote);
 
@@ -270,7 +270,6 @@ unsigned long MidiTranslationUnit::maxValueVlq(const int _byteNumber)
 {
     //Returns the maximum value represented byte
     //the _byteNumber byte VLQ representation
-    unsigned long _max;
 
     if(_byteNumber == 0) return 0;
     else

@@ -6,22 +6,22 @@
 #include "symmetriccliches.h"
 
 namespace Ui {
-class SymmetricClichesForm;
+class VariationsForm;
 }
 
-class SymmetricClichesForm : public QWidget
+class VariationsForm : public QWidget
 {
         Q_OBJECT
 
     public:
-        explicit SymmetricClichesForm(QWidget *parent = 0);
-        ~SymmetricClichesForm();
+        explicit VariationsForm(QWidget *parent = 0);
+        ~VariationsForm();
         int getHighestPitch();
         int getLowestPitch();
 
     private:
-        Ui::SymmetricClichesForm *ui;
-        SymmetricCliches instance;
+        Ui::VariationsForm *ui;
+        Variations instance;
 
 };
 
