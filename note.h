@@ -4,7 +4,7 @@
 class Note
 {
     public:
-        Note(const unsigned char _pitch = 0, const double _duration = 0);
+        Note(const unsigned char _pitch = 0, const double _duration = 0, const char _velocity = 0);
         unsigned char getPitch() const;
         double getDuration() const;
         char getVelocity() const;
@@ -14,6 +14,7 @@ class Note
         void incrementDuration(const double _duration);
         void setVelocity(const char _velocity);
         bool isRest() const;
+        void operator=(const Note &_note);
         ~Note();
 
     private:

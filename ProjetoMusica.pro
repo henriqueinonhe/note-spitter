@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     outputdialog.cpp \
     melodicsetupform.cpp \
     variations.cpp \
-    variationsform.cpp
+    variationsform.cpp \
+    symmetriccliches.cpp
 
 HEADERS += \
     note.h \
@@ -36,7 +37,8 @@ HEADERS += \
     melodicsetupform.h \
     pcg_uint128.hpp \
     variations.h \
-    variationsform.h
+    variationsform.h \
+    symmetriccliches.h
 
 FORMS += \
     intro.ui \

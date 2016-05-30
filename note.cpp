@@ -1,6 +1,6 @@
 #include "note.h"
 
-Note::Note(const unsigned char _pitch, const double _duration) : pitch(_pitch), duration(_duration)
+Note::Note(const unsigned char _pitch, const double _duration, const char _velocity) : pitch(_pitch), duration(_duration), velocity(_velocity)
 {
 
 }
@@ -50,11 +50,17 @@ bool Note::isRest() const
     return duration < 0;
 }
 
+void Note::operator =(const Note &_note)
+{
+    pitch = _note.getPitch();
+    duration = _note.getDuration();
+    velocity = _note.getVelocity();
+}
+
 Note::~Note()
 {
 
 }
-
 
 
 
