@@ -1,5 +1,6 @@
 #include "melodicsetupform.h"
 #include "ui_melodicsetupform.h"
+#include "intro.h"
 
 MelodicSetupForm::MelodicSetupForm(QWidget *parent) :
     QWidget(parent),
@@ -32,7 +33,7 @@ MelodicSetupForm::MelodicSetupForm(QWidget *parent) :
     //Connects
     setConnections();
 
-
+    rhythmicSetupWindow.parentWindow = this;
 }
 
 MelodicSetupForm::~MelodicSetupForm()
@@ -152,6 +153,8 @@ void MelodicSetupForm::setConnections()
             this, SLOT(checkEnablePushButtonOK()));
     connect(ui->pushButtonCancel, SIGNAL(clicked(bool)),
             this, SLOT(close()));
+    connect(ui->pushButtonCancel, SIGNAL(clicked(bool)),
+            this, SLOT(openParent()));
     connect(ui->pushButtonOK, SIGNAL(clicked(bool)),
             this, SLOT(close()));
     connect(ui->pushButtonOK, SIGNAL(clicked(bool)),
@@ -522,7 +525,10 @@ void MelodicSetupForm::setInitialPercentage()
     }
 }
 
-
+void MelodicSetupForm::openParent()
+{
+    parentWindow->show();
+}
 
 
 

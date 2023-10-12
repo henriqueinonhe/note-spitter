@@ -13,6 +13,7 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QDataStream>
 
 class MidiTranslationUnit
 {
@@ -21,9 +22,9 @@ class MidiTranslationUnit
     public:
         MidiTranslationUnit();
         void setTimeClock(const int _clock);
-        bool setSampleHeaderAddress(const std::string &_address);
-        bool setOutputFileAddress(const std::string &_address);
-        bool setInputFileAddress(const std::string &_address);
+        bool setSampleHeaderAddress(const QString &_address);
+        bool setOutputFileAddress(const QString &_address);
+        bool setInputFileAddress(const QString &_address);
         void setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure);
         void setPulseNumber(const int _pulseNumber);
         void setAttributesFromInput();
@@ -47,9 +48,9 @@ class MidiTranslationUnit
         void writeTimeClock();
         void readTimeSignature();
         void readTimeClock();
-        std::fstream sampleHeader;
-        std::fstream outputFile;
-        std::fstream inputFile;
+        QFile sampleHeader;
+        QFile outputFile;
+        QFile inputFile;
         std::vector<unsigned char> outputData;
         std::vector<unsigned char> inputData;
         int pulseNumber;

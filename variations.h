@@ -17,6 +17,7 @@ class Variations
         void setNoteInput(const std::vector<Note> &_vector);
         void setStaticFirstNote(const bool _value);
         void setTimeSignature(const int _pulseNumber, const PulseMeasureValidFigures _pulseMeasure);
+        void setAllowedIntervals(std::array<bool, 13> _array);
         std::vector<Note> &getNoteOutput();
         bool checkPitchRange();
         bool checkAdjRepeatedNotes();
@@ -51,7 +52,7 @@ class Variations
         std::vector<int> upperIntervalBounds;
         std::vector<int> lowerIntervalBounds;
         std::vector<int> pitchSequence;
-        std::array<bool, 25> allowedIntervals;
+        std::array<bool, 13> allowedIntervals;
         std::vector<std::vector<Note>> noteSequences;
         std::vector<Note> noteOutput;
         std::vector<Note> noteInput;

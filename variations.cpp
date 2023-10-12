@@ -1,5 +1,4 @@
 #include "variations.h"
-#include <QDebug>
 Variations::Variations()
 {
 
@@ -18,6 +17,11 @@ void Variations::setLowestPitch(unsigned char _pitch)
 void Variations::setNoteInput(const std::vector<Note> &_vector)
 {
     noteInput = _vector;
+}
+
+void Variations::setAllowedIntervals(std::array<bool, 13> _array)
+{
+    allowedIntervals = _array;
 }
 
 bool Variations::checkPitchRange()
@@ -329,12 +333,6 @@ void Variations::setIntervalBounds()
     {
         if(!noteInput[_index].isRest()) pitchSequence.push_back(noteInput[_index].getPitch());
     }
-
-    /* I have to fix this later. */
-    allowedIntervals.fill(false);
-    allowedIntervals[0] = true;
-    allowedIntervals[1] = true;
-    allowedIntervals[2] = true;
 }
 
 void Variations::setMaximumDiff()

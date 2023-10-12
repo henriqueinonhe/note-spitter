@@ -5,14 +5,14 @@ SymmetricCliches::SymmetricCliches(const unsigned char _firstPitch,
                                    const int _lowestPitch,
                                    const int _highestPitch,
                                    const int _cyclesNumber,
-                                   const std::vector<int> &&_intervalPattern)
+                                   const std::vector<int> &_intervalPattern)
 {
     firstPitch = _firstPitch;
     firstDuration = _firstDuration;
     lowestPitch = _lowestPitch;
     highestPitch = _highestPitch;
     ciclesNumber = _cyclesNumber;
-    &intervalPattern = _intervalPattern;
+    intervalPattern = _intervalPattern;
 }
 
 void SymmetricCliches::setIntervalPattern(const std::vector<int> &_pattern)
@@ -20,7 +20,7 @@ void SymmetricCliches::setIntervalPattern(const std::vector<int> &_pattern)
     intervalPattern = _pattern;
 }
 
-std::vector<int> &SymmetricCliches::getNoteOutput() const
+std::vector<Note> &SymmetricCliches::getNoteOutput()
 {
     return noteOutput;
 }
@@ -31,7 +31,7 @@ void SymmetricCliches::generateNoteSequence()
      * which generates the note sequences when
      * the intervals are applied to the first note. */
 
-    Note _sample(firstPitch, firstDuration);
+    Note _sample(firstPitch, firstDuration, 0x47);
     noteOutput.push_back(_sample);
 
     for(int _counter = 0; _counter < ciclesNumber; _counter++)

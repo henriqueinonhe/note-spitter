@@ -5,25 +5,28 @@ MidiTranslationUnit::MidiTranslationUnit()
 
 }
 
-bool MidiTranslationUnit::setInputFileAddress(const std::string &_address)
+bool MidiTranslationUnit::setInputFileAddress(const QString &_address)
 {
-    inputFile.open(_address, std::ios::in | std::ios::binary);
+    inputFile.setFileName(_address);
+    inputFile.open(QFile::ReadOnly);
 
-    return inputFile.is_open();
+    return inputFile.isOpen();
 }
 
-bool MidiTranslationUnit::setOutputFileAddress(const std::string &_address)
+bool MidiTranslationUnit::setOutputFileAddress(const QString &_address)
 {
-    outputFile.open(_address, std::ios::out | std::ios::binary);
+    outputFile.setFileName(_address);
+    outputFile.open(QFile::WriteOnly);
 
-    return outputFile.is_open();
+    return outputFile.isOpen();
 }
 
-bool MidiTranslationUnit::setSampleHeaderAddress(const std::string &_address)
+bool MidiTranslationUnit::setSampleHeaderAddress(const QString &_address)
 {
-    sampleHeader.open(_address, std::ios::in | std::ios::binary);
+    sampleHeader.setFileName(_address);
+    sampleHeader.open(QFile::ReadOnly);
 
-    return sampleHeader.is_open();
+    return sampleHeader.isOpen();
 }
 
 void MidiTranslationUnit::setPulseMeasure(const PulseMeasureValidFigures _pulseMeasure)
@@ -177,11 +180,8 @@ void MidiTranslationUnit::readToInput()
 
     int _fileLength;
 
-    /* Gets the length of the file, then sets the iterator to the beggining
-     * of the file. */
-    inputFile.seekg(0, std::ios_base::end);
-    _fileLength = inputFile.tellg();
-    inputFile.seekg(0, std::ios_base::beg);
+    /* Gets the length of the file. */
+    _fileLength = inputFile.size();
 
     /* Allocates enough space in the vector. */
     inputData.resize(_fileLength);
@@ -376,7 +376,7 @@ void MidiTranslationUnit::writeData()
     static const unsigned int trackHeaderByteComplement = 33;
     static const unsigned int headerEndPos = 0x68;
 
-    outputFile.seekp(headerEndPos, std::ios_base::beg);
+    outputFile.seek(headerEndPos);
     outputFile.write(reinterpret_cast<char*>(outputData.data()), outputData.size());
 
     //Writing Number of Bytes in the header
@@ -385,7 +385,7 @@ void MidiTranslationUnit::writeData()
     //and insert the missing bytes at the beginning of the vector
     //with the value of 0x00
     std::vector<char> _buffer = NumCon::convertToVector(outputData.size() + trackHeaderByteComplement, 256, 4, ' ');
-    outputFile.seekp(byteNumberPosition, std::ios_base::beg);
+    outputFile.seek(byteNumberPosition);
     outputFile.write(reinterpret_cast<char*>(_buffer.data()), 4);
 
 }
@@ -400,7 +400,7 @@ void MidiTranslationUnit::writeTimeSignature()
     char *_buffer = new char[2];
     _buffer[0] = pulseNumber;
     _buffer[1] = (char) (pulseMeasure);
-    outputFile.seekp(timeSignaturePosition, std::ios_base::beg);
+    outputFile.seek(timeSignaturePosition);
     outputFile.write(reinterpret_cast<char*>(_buffer), 2);
 }
 
@@ -410,7 +410,7 @@ void MidiTranslationUnit::writeTimeClock()
     static const unsigned int timeClockPosition = 0x0c;
     std::vector<char> _buffer = NumCon::convertToVector(timeClock, 256, 2, NUL);
 
-    outputFile.seekp(timeClockPosition, std::ios_base::beg);
+    outputFile.seek(timeClockPosition);
     outputFile.write(reinterpret_cast<char*>(_buffer.data()), 2);
 
 }

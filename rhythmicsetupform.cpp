@@ -1,5 +1,7 @@
 #include "rhythmicsetupform.h"
 #include "ui_rhythmicsetupform.h"
+#include "melodicsetupform.h"
+#include "intro.h"
 
 RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     QWidget(parent),
@@ -22,12 +24,17 @@ RhythmicSetupForm::RhythmicSetupForm(QWidget *parent) :
     //Making Connections
     setConnections();
 
-    /* Testing and debugging purposes */
 }
 
 RhythmicSetupForm::~RhythmicSetupForm()
 {
     delete ui;
+}
+
+void RhythmicSetupForm::openParent()
+{
+    if(parentWindow != nullptr) parentWindow->show();
+    else introWindow->show();
 }
 
 void RhythmicSetupForm::setSpinBoxRange()
@@ -55,6 +62,8 @@ void RhythmicSetupForm::setConnections()
             this, SLOT(concatenatePercentage()));
     connect(ui->pushButtonCancel_2, SIGNAL(clicked(bool)),
             this, SLOT(close()));
+    connect(ui->pushButtonCancel_2, SIGNAL(clicked(bool)),
+            this, SLOT(openParent()));
     connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
             this, SLOT(close()));
     connect(ui->pushButtonOK_2, SIGNAL(clicked(bool)),
@@ -413,7 +422,11 @@ void RhythmicSetupForm::MAGIC()
     unit.setPulseNumber(hold.pulseNumber);
     unit.setPulseMeasure(hold.pulseMeasure);
     unit.setTimeClock(960);
-    unit.setSampleHeaderAddress("C:\\Users\\Henrique Inonhe\\Desktop\\QTLearning\\ProjetoMusica\\NEWSAMPLE.mid");
+
+    /*Unit test*/
+
+    bool file = false;
+    file = unit.setSampleHeaderAddress(":/MyFiles/NEWSAMPLE.mid");
     unit.setOutputFileAddress("C:\\Users\\Henrique Inonhe\\Desktop\\MidiOutput.mid");
     unit.translateToMidi(instance.getNoteArray());
     unit.writeToFile();

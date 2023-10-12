@@ -15,6 +15,8 @@
 #include "miditranslationunit.h"
 
 extern DataHold hold;
+class MelodicSetupForm;
+class Intro;
 
 namespace Ui {
 class RhythmicSetupForm;
@@ -33,6 +35,8 @@ class RhythmicSetupForm : public QWidget
         PulseMeasureValidFigures getPulseMeasure();
         int getSlurChance();
         TimeSignatureMeter getMeter();
+        MelodicSetupForm *parentWindow;
+        Intro *introWindow;
 
     private:
         void setSpinBoxRange();
@@ -56,6 +60,7 @@ class RhythmicSetupForm : public QWidget
         void binaryMeterChosen();
         void ternaryMeterChosen();
         void MAGIC();
+        void openParent();
 
     signals:
         void propagatePercentageUpdate();

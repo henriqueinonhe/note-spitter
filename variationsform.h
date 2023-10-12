@@ -1,9 +1,15 @@
-#ifndef SYMMETRICCLICHESFORM_H
-#define SYMMETRICCLICHESFORM_H
+#ifndef VARIATIONSFORM_H
+#define VARIATIONSFORM_H
+
+#include "variations.h"
+#include "miditranslationunit.h"
 
 #include <QWidget>
+#include <QValidator>
 
-#include "symmetriccliches.h"
+#include <array>
+
+class Intro;
 
 namespace Ui {
 class VariationsForm;
@@ -16,13 +22,20 @@ class VariationsForm : public QWidget
     public:
         explicit VariationsForm(QWidget *parent = 0);
         ~VariationsForm();
-        int getHighestPitch();
-        int getLowestPitch();
+        Intro *parentWindow;
 
     private:
+        int getHighestPitch();
+        int getLowestPitch();
+        std::array<bool, 13> getAllowedIntervals();
+        bool getStatic();
+        int translatePitch(const QString &_str);
         Ui::VariationsForm *ui;
-        Variations instance;
+        QRegularExpressionValidator *pitchValidator;
 
+    private slots:
+        void openParent();
+        void runVariations();
 };
 
-#endif // SYMMETRICCLICHESFORM_H
+#endif // VARIATIONSFORM_H

@@ -13,6 +13,7 @@
 #include "datahold.h"
 
 extern DataHold hold;
+class Intro;
 
 namespace Ui {
 class MelodicSetupForm;
@@ -31,6 +32,7 @@ class MelodicSetupForm : public QWidget
         int getLowestPitch();
         int getFirstPitch();
         bool getNoLoop();
+        Intro *parentWindow;
 
     private:
         void spinBoxToArray();
@@ -62,6 +64,7 @@ class MelodicSetupForm : public QWidget
     private slots:
         void checkEnablePushButtonOK();
         void updatePercentage();
+        void openParent();
 
     signals:
         void propagatePercentageChange();

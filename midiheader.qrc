@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/MidiHeader">
+    <qresource prefix="/MyFiles">
         <file>NEWSAMPLE.mid</file>
         <file>ProjetoMusica.pro</file>
     </qresource>

@@ -12,9 +12,9 @@ class SymmetricCliches : MelodicSetup
                          const int _lowestPitch,
                          const int _highestPitch,
                          const int _ciclesNumber,
-                         const std::vector<int> &&_intervalPattern);
+                         const std::vector<int> &_intervalPattern);
         void setIntervalPattern(const std::vector<int> &_pattern);
-        std::vector<int> &getNoteOutput() const;
+        std::vector<Note> &getNoteOutput();
         void generateNoteSequence();
 
     private:

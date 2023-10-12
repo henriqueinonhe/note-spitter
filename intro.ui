@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>147</height>
+    <height>206</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,9 +49,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonTM">
+    <widget class="QPushButton" name="pushButtonV">
      <property name="text">
-      <string>Transposição Modal</string>
+      <string>Variações</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonSettings">
+     <property name="text">
+      <string>Configurações</string>
      </property>
     </widget>
    </item>
